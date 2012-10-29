@@ -73,7 +73,7 @@
 							resourceURL = data['long-url'];
 							
 							// Fix for youtube urls with more parameters
-							if (resourceURL.indexOf('youtube.com/') && resourceURL.indexOf('&v=')) {
+							if (resourceURL.indexOf('youtube.com/') != -1 && resourceURL.indexOf('&v=') != -1) {
 								resourceURL = 'http://www.youtube.com/watch?' + resourceURL.substring(resourceURL.indexOf('&v=') + 1);
 								}
 				
@@ -98,7 +98,7 @@
 				}
 				
                 // Fix for youtube urls with more parameters
-				if (resourceURL.indexOf('youtube.com/') && resourceURL.indexOf('&v=')) {
+				if (resourceURL.indexOf('youtube.com/') != -1 && resourceURL.indexOf('&v=') != -1) {
 					resourceURL = 'http://www.youtube.com/watch?' + resourceURL.substring(resourceURL.indexOf('&v=') + 1);
 				}
 				

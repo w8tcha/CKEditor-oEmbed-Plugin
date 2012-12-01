@@ -160,7 +160,7 @@ This Plugin uses the jquery-oembed-all Plugin  located at https://github.com/sta
 
 ####Screenshots
 
-http://www.watchersnet.de/Portals/0/screenshots/dnn/CkEditorMediaEmbedPlugin.jpg
+![Screenshot](http://www.watchersnet.de/Portals/0/screenshots/dnn/CkEditorMediaEmbedPlugin.jpg)
 
 ####License
 

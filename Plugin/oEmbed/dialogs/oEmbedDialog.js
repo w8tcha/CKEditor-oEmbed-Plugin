@@ -13,10 +13,12 @@
             minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
             minHeight: 240,
             onLoad: function () {
-				CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oEmbed') + 'dialogs/jquery.oembed.js'));
+				if (!jQuery.fn.oembed) {
+					CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oEmbed') + 'dialogs/jquery.oembed.js'));
+				}
             },
             onOk: function () {
-                inputCode = this.getValueOf('general', 'embedCode');
+                var inputCode = this.getValueOf('general', 'embedCode');
                 
 				var width = this.getContentElement('general', 'width').getInputElement().getValue();
                 var height = this.getContentElement('general', 'height').getInputElement().getValue();

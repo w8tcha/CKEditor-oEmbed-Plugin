@@ -4,5 +4,4 @@ CKEDITOR.plugins.setLang('oEmbed', 'en', {
     pasteUrl : "Paste an URL (Also shortened URLs are supported) from one of the Supported Sites (e.g. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.) here ...",
 	width : "Max. Width:",
 	height : "Max. Height:",
-	found : " found!"
 });

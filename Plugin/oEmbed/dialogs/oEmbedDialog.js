@@ -12,24 +12,20 @@
             title: editor.lang.oEmbed.title,
             minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
             minHeight: 240,
-            onShow: function () {
-				 CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oEmbed') + 'dialogs/jquery.oembed.js'));
+            onLoad: function () {
+				CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oEmbed') + 'dialogs/jquery.oembed.js'));
             },
             onOk: function () {
                 inputCode = this.getValueOf('general', 'embedCode');
-                var width = 560;
-                var height = 315;
-
-                width = this.getContentElement('general', 'width').getInputElement().getValue();
-                height = this.getContentElement('general', 'height').getInputElement().getValue();
-				
+                
+				var width = this.getContentElement('general', 'width').getInputElement().getValue();
+                var height = this.getContentElement('general', 'height').getInputElement().getValue();
 				
 				var editorInstance = this.getParentEditor();
 				
 				if (inputCode.length > 1 && inputCode.indexOf('http') > -1) {
 					$('body').oembed(inputCode, {
-                        afterEmbed: function (e) {
-							//console.log(e.provider.name + ' ' + e.provider.type + editor.lang.oEmbed.found);
+                        onEmbed: function (e) {
 							editorInstance.insertHtml(e.code);
                         },
                         
@@ -44,8 +40,8 @@
                 id: 'general',
                 elements: [{
                     type: 'html',
-                    id: 'youtubeHeader',
-                    html: '<div style="white-space:normal;width:500px;font-size:large;">' + editor.lang.oEmbed.pasteUrl + '</div>'
+                    id: 'oembedHeader',
+                    html: '<div style="white-space:normal;width:500px;">' + editor.lang.oEmbed.pasteUrl + '</div>'
                 }, {
                     type: 'textarea',
                     id: 'embedCode',

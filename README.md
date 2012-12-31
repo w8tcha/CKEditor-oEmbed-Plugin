@@ -7,6 +7,10 @@ This Plugin allows to insert embedded content (such as photos, videos, audio, an
 
 This Plugin uses the jquery-oembed-all Plugin  located at https://github.com/starfishmod/jquery-oembed-all.
 
+####Demo
+
+http://w8tcha.github.com/CKEditor-oEmbed-Plugin/
+
 ####Currently Supported Sites...
 
 ###Video
@@ -158,9 +162,6 @@ This Plugin uses the jquery-oembed-all Plugin  located at https://github.com/sta
 * tripline - OGP
 * jsfiddle - embedded
 
-####Screenshots
-
-![Screenshot](http://www.watchersnet.de/Portals/0/screenshots/dnn/CkEditorMediaEmbedPlugin.jpg)
 
 ####License
 
@@ -172,11 +173,11 @@ Installation
  2. In the CKEditor configuration file (config.js) add the following code:
 
 ````
-config.extraPlugins = '[ oEmbed ]';
+config.extraPlugins = '[ oembed ]';
 ````
 
 3. and also include the plugin in the toolbar 
 
 ````
-toolbar :[ ... ['oEmbed']...]
+toolbar :[ ... ['oembed']...]
 ````

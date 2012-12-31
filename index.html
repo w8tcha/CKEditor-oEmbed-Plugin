@@ -19,12 +19,11 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/w8tcha/CKEditor-oEmbed-Plugin">View on GitHub</a>
 
-          <h1 id="project_title">Ckeditor-oembed-plugin</h1>
-          <h2 id="project_tagline">oEmbed Plugin for CKEditor</h2>
+          <h1 id="project_title">CKEditor&trade; oEmbed Plugin</h1>
+          <h2 id="project_tagline">Media Embed Plugin for <a href="http://ckeditor.com/">CKEditor&trade;</a></h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/w8tcha/CKEditor-oEmbed-Plugin/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/w8tcha/CKEditor-oEmbed-Plugin/tarball/master">Download this project as a tar.gz file</a>
+              <a class="zip_download_link" href="https://github.com/w8tcha/CKEditor-oEmbed-Plugin/archive/master.zip">Download this project as a .zip file</a>
             </section>
         </header>
     </div>
@@ -32,20 +31,18 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>CKEditor-oEmbed-Plugin</h1>
+        <h1><a href="http://ckeditor.com/">CKEditor&trade;</a> oEmbed Plugin</h1>
 
-<p>oEmbed Plugin for CKEditor</p>
+<p>Media Embed Plugin for <a href="http://ckeditor.com/">CKEditor&trade;</a></p>
 
 <p>This Plugin allows to insert embedded content (such as photos, videos, audio, and other rich media) via the OEmbed API. You only have to provide the url to the site (It works also when the url is shortened) you want to embed and the plugin does the rest.</p>
 
 <p>This Plugin uses the jquery-oembed-all Plugin  located at <a href="https://github.com/starfishmod/jquery-oembed-all">https://github.com/starfishmod/jquery-oembed-all</a>.</p>
 <hr />
-<h4>Demo</h4>
-<p>This sample shows the use of the Media (oEmbed) Plugin where you can include only content from popular sites such as YouTube, Flickr, Qik, Vimeo, Hulu, Viddler and many more</p>
+<h4>Demo
  
-
-	<!-- This <div> holds alert messages to be display in the sample page. -->
-	<div id="alerts">
+	<!-- This <div> holds alert messages to be display in the sample page. -->	</h4>
+<div id="alerts">
 		<noscript>
 			<p>
 				<strong>CKEditor requires JavaScript to run</strong>. In a browser with no JavaScript
@@ -235,23 +232,25 @@
 
 <h4>License</h4>
 
-<p>Licensed under the terms of the MIT License.</p>
+<ul>
+    <li>Licensed under the terms of the MIT License.</li>
+</ul>
 
-<p>Installation</p>
+<hr />
+
+<h4>Installation</h4>
 
 <ol>
 <li>Extract the contents of the file into the "plugins" folder of CKEditor.</li>
-<li>In the CKEditor configuration file (config.js) add the following code:</li>
-</ol><pre><code>config.extraPlugins = '[ oEmbed ]';
+<li>In the CKEditor configuration file (config.js) add the following code:
+<pre><code>config.extraPlugins = '[ oEmbed ]';
 </code></pre>
 
 <p>Additionally you can also set the default values vor the Max. Width/Height Values
 <pre><code>config.oembed_maxWidth = '560';<br />config.oembed_maxHeight = '315';</code></pre>
-
-<ol>
-<li>and also include the plugin in the toolbar </li>
-</ol><pre><code>toolbar :[ ... ['oEmbed']...]
-</code></pre>
+<li>and also include the plugin in the toolbar <pre><code>toolbar :[ ... ['oEmbed']...]
+</code></pre></li>
+</ol>
       </section>
     </div>
 

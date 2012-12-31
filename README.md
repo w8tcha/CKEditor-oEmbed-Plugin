@@ -167,13 +167,20 @@ http://w8tcha.github.com/CKEditor-oEmbed-Plugin/
 
 Licensed under the terms of the MIT License.
 
-Installation
+####Installation
 
  1. Extract the contents of the file into the "plugins" folder of CKEditor.
  2. In the CKEditor configuration file (config.js) add the following code:
 
 ````
 config.extraPlugins = '[ oembed ]';
+````
+
+2a. Additionally you can also set the default values vor the Max. Width/Height Values
+
+````
+config.oembed_maxWidth = '560';
+config.oembed_maxHeight = '315';
 ````
 
 3. and also include the plugin in the toolbar 

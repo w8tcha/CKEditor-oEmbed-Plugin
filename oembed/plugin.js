@@ -9,7 +9,7 @@
 (function () {
     CKEDITOR.plugins.add('oembed', {
         requires: ['dialog'],
-        lang: ['de', 'en', 'nl'],
+        lang: ['de', 'en', 'nl', 'fr'],
         init: function (editor) {
             // Load jquery?
             if (typeof (jQuery) == 'undefined') {
@@ -71,11 +71,11 @@
                         elements: [{
                             type: 'html',
                             id: 'oembedHeader',
-                            html: '<div style="white-space:normal;width:500px;">' + editor.lang.oembed.pasteUrl + '</div>'
+                            html: '<div style="white-space:normal;width:500px;padding-bottom:10px">' + editor.lang.oembed.pasteUrl + '</div>'
                         }, {
                             type: 'textarea',
                             id: 'embedCode',
-                            style: 'height:80px',
+							height : "80",
                             focus: function () {
                                 this.getElement().focus()
                             }
@@ -85,12 +85,12 @@
                             children: [{
                                 type: 'text',
                                 id: 'width',
-                                'default': editor.config.oembed_maxWidth != null ? config.oembed_maxWidth : '560',
+                                'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                 label: editor.lang.oembed.width
                             }, {
                                 type: 'text',
                                 id: 'height',
-                                'default': editor.config.oembed_maxHeight != null ? config.oembed_maxHeight : '315',
+                                'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                 label: editor.lang.oembed.height
                             }]
                         }, {

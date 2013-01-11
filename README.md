@@ -183,6 +183,13 @@ config.oembed_maxWidth = '560';
 config.oembed_maxHeight = '315';
 ````
 
+and also you can define an css class for the embeded content wrapper (div), by default there is no Class defined
+
+````
+config.oembed_WrapperClass = 'embededContent';
+````
+
+
 3. and also include the plugin in the toolbar 
 
 ````

@@ -38,9 +38,7 @@
                         $('#oembedInfoFooter').hide();
                         var inputCode = this.getValueOf('general', 'embedCode');
                         if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
-                            $('#oembedInfoFooter').html(editor.lang.oembed.invalidUrl);
-                            $('#oembedInfoFooter').css("color", "red");
-                            $('#oembedInfoFooter').show();
+                            alert(editor.lang.oembed.invalidUrl);
                             return false;
                         }
                         var width = this.getContentElement('general', 'width').getInputElement().getValue();
@@ -49,14 +47,11 @@
                         var codeFound = null;
                         $('body').oembed(inputCode, {
                             onEmbed: function (e) {
-                                if (typeof e.code === 'string') {
-									editorInstance.insertElement( CKEDITOR.dom.element.createFromHtml( '<p>' + e.code + '</p>' ) );
+                                if (typeof e.code === 'string') { alert(editor.lang.oembed.noEmbedCode)
+									editorInstance.insertElement( CKEDITOR.dom.element.createFromHtml( '<div' + editor.config.oembed_WrapperClass != null ? ' class="' + editor.config.oembed_WrapperClass + '">' : '>' + e.code + '</div>' ));
                                     CKEDITOR.dialog.getCurrent().hide();
                                 } else {
-                                    //this.show();
-                                    $('#oembedInfoFooter').html(editor.lang.oembed.noEmbedCode);
-                                    $('#oembedInfoFooter').css("color", "red");
-                                    $('#oembedInfoFooter').show();
+                                    alert(editor.lang.oembed.noEmbedCode);
                                 }
                             },
                             maxHeight: width,
@@ -93,10 +88,6 @@
                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                 label: editor.lang.oembed.height
                             }]
-                        }, {
-                            type: 'html',
-                            id: 'oembedInfoFooter',
-                            html: '<div id="oembedInfoFooter" style="white-space:normal;width:500px;text-align:center;display:none"></div>'
                         }]
                     }]
                 }

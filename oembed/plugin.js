@@ -47,7 +47,7 @@
                         var codeFound = null;
                         $('body').oembed(inputCode, {
                             onEmbed: function (e) {
-                                if (typeof e.code === 'string') { alert(editor.lang.oembed.noEmbedCode)
+                                if (typeof e.code === 'string') { 
 									editorInstance.insertElement( CKEDITOR.dom.element.createFromHtml( '<div' + editor.config.oembed_WrapperClass != null ? ' class="' + editor.config.oembed_WrapperClass + '">' : '>' + e.code + '</div>' ));
                                     CKEDITOR.dialog.getCurrent().hide();
                                 } else {

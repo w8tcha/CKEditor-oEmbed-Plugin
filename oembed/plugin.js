@@ -13,8 +13,16 @@
         init: function (editor) {
             // Load jquery?
             if (typeof (jQuery) == 'undefined') {
-                CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js');
+				CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js', function() {
+					if (typeof (jQuery.fn.oembed) == 'undefined') {
+						CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
+                    }
+				});
+
+            } else if (typeof (jQuery.fn.oembed) == 'undefined') {
+				CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
             }
+			
             editor.addCommand('oembed', new CKEDITOR.dialogCommand('oembed'));
             editor.ui.addButton('oembed', {
                 label: editor.lang.oembed.button,
@@ -26,11 +34,6 @@
                     title: editor.lang.oembed.title,
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
                     minHeight: 240,
-                    onLoad: function () {
-                        if (typeof (jQuery.fn.oembed) == 'undefined') {
-                            CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
-                        }
-                    },
                     onCancel: function () {
                         $('#oembedInfoFooter').hide();
                     },
@@ -48,7 +51,7 @@
                         $('body').oembed(inputCode, {
                             onEmbed: function (e) {
                                 if (typeof e.code === 'string') { 
-									editorInstance.insertElement( CKEDITOR.dom.element.createFromHtml( '<div' + editor.config.oembed_WrapperClass != null ? ' class="' + editor.config.oembed_WrapperClass + '">' : '>' + e.code + '</div>' ));
+								    editorInstance.insertElement( CKEDITOR.dom.element.createFromHtml( editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '">' : '<div>' + e.code + '</div>' ));
                                     CKEDITOR.dialog.getCurrent().hide();
                                 } else {
                                     alert(editor.lang.oembed.noEmbedCode);

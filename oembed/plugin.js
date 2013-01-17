@@ -39,7 +39,7 @@
                     },
                     onOk: function () {
                         $('#oembedInfoFooter').hide();
-                        var inputCode = this.getValueOf('general', 'embedCode');
+                        var inputCode = this.getValueOf('general', 'embedCode').replace('https:', 'http:');
                         if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
                             alert(editor.lang.oembed.invalidUrl);
                             return false;
@@ -57,8 +57,8 @@
                                     alert(editor.lang.oembed.noEmbedCode);
                                 }
                             },
-                            maxHeight: width,
-                            maxWidth: height,
+                            maxHeight: height,
+                            maxWidth: width,
                             embedMethod: 'editor'
                         });
                         return false;

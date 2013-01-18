@@ -9,7 +9,7 @@
 (function () {
     CKEDITOR.plugins.add('oembed', {
         requires: ['dialog'],
-        lang: ['de', 'en', 'nl', 'fr'],
+        lang: ['de', 'en', 'nl', 'fr', 'ru'],
         init: function (editor) {
             // Load jquery?
             if (typeof (jQuery) == 'undefined') {

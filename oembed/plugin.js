@@ -13,7 +13,7 @@
         init: function (editor) {
             // Load jquery?
             if (typeof (jQuery) == 'undefined') {
-				CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js', function() {
+				CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
 					if (typeof (jQuery.fn.oembed) == 'undefined') {
 						CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
                     }
@@ -34,11 +34,7 @@
                     title: editor.lang.oembed.title,
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
                     minHeight: 240,
-                    onCancel: function () {
-                        $('#oembedInfoFooter').hide();
-                    },
                     onOk: function () {
-                        $('#oembedInfoFooter').hide();
                         var inputCode = this.getValueOf('general', 'embedCode').replace('https:', 'http:');
                         if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
                             alert(editor.lang.oembed.invalidUrl);

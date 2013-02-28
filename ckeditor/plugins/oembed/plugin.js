@@ -33,20 +33,23 @@
                 return {
                     title: editor.lang.oembed.title,
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
-                    minHeight: 240,
+                    minHeight: 155,
                     onOk: function() {
-                        var inputCode = this.getValueOf('general', 'embedCode').replace('https:', 'http:');
+                        var inputCode = this.getValueOf('general', 'embedCode');//.replace('https:', 'http:');
                         if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
                             alert(editor.lang.oembed.invalidUrl);
                             return false;
                         }
+                        
                         var width = this.getContentElement('general', 'width').getInputElement().getValue();
                         var height = this.getContentElement('general', 'height').getInputElement().getValue();
                         var editorInstance = this.getParentEditor();
-                        $('body').oembed(inputCode, {
+                        jQuery('body').oembed(inputCode, {
                             onEmbed: function(e) {
                                 if (typeof e.code === 'string') {
-                                    editorInstance.insertElement(CKEDITOR.dom.element.createFromHtml((editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '">' : '<div>') + e.code + '</div>'));
+                                    editorInstance.insertHtml(editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '" />' : '<div />');
+                                    editorInstance.insertHtml(e.code);
+                                    
                                     CKEDITOR.dialog.getCurrent().hide();
                                 } else {
                                     alert(editor.lang.oembed.noEmbedCode);
@@ -66,12 +69,14 @@
                                 id: 'oembedHeader',
                                 html: '<div style="white-space:normal;width:500px;padding-bottom:10px">' + editor.lang.oembed.pasteUrl + '</div>'
                             }, {
-                                type: 'textarea',
+                                type: 'text',
                                 id: 'embedCode',
-                                height: "80",
                                 focus: function() {
                                     this.getElement().focus();
-                                }
+                                },
+                                label: editor.lang.oembed.url,
+                                title: editor.lang.oembed.pasteUrl
+                                
                             }, {
                                 type: 'hbox',
                                 widths: ['50%', '50%'],
@@ -79,12 +84,14 @@
                                         type: 'text',
                                         id: 'width',
                                         'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
-                                        label: editor.lang.oembed.width
+                                        label: editor.lang.oembed.width,
+                                        title: editor.lang.oembed.widthTitle
                                     }, {
                                         type: 'text',
                                         id: 'height',
                                         'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
-                                        label: editor.lang.oembed.height
+                                        label: editor.lang.oembed.height,
+                                        title: editor.lang.oembed.heightTitle
                                     }]
                             }]
                     }]

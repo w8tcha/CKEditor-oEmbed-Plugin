@@ -5,5 +5,8 @@ CKEDITOR.plugins.setLang('oembed', 'ru', {
     width : "Макс. ширина:",
     height : "Макс. высота:",
     invalidUrl : "Вы ввели некорректный URL",
-    noEmbedCode : "Не обнаружен код для вставки. Возможно, вы ввели ссылку с неподдерживаемого сайта."
+    noEmbedCode : "Не обнаружен код для вставки. Возможно, вы ввели ссылку с неподдерживаемого сайта.",
+	url : "URL:",
+	widthTitle : "Maximum Width for the embeded Content",
+	heightTitle : "Maximum Height for the embeded Content"
 });

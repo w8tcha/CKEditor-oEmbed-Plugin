@@ -47,8 +47,7 @@
                         jQuery('body').oembed(inputCode, {
                             onEmbed: function(e) {
                                 if (typeof e.code === 'string') {
-                                    editorInstance.insertHtml(editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '" />' : '<div />');
-                                    editorInstance.insertHtml(e.code);
+                                    editorInstance.insertHtml(editor.config.oembed_Wrapper != null ? $('<div>').append($(editor.config.oembed_Wrapper).append(e.code)).html() : e.code);
                                     
                                     CKEDITOR.dialog.getCurrent().hide();
                                 } else {

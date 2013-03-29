@@ -245,6 +245,11 @@
 <li>In the CKEditor configuration file (config.js) add the following code:
 <pre><code>config.extraPlugins = '[ oembed ]';
 </code></pre>
+In CKEditor 4.1 or higher you need to disable ACF in the Config
+
+<pre><code>
+config.allowedContent = true;
+</code></pre>
 
 <p>Additionally you can also set the default values vor the Max. Width/Height Values
 <pre><code>config.oembed_maxWidth = '560';<br />config.oembed_maxHeight = '315';</code></pre><br />

@@ -11,6 +11,14 @@
         requires: ['dialog'],
         lang: ['de', 'en', 'nl', 'fr', 'ru'],
         init: function(editor) {
+
+            // Check if content filter is disabled
+            if (CKEDITOR.version >= 4.1) {
+                if (editor.config.allowedContent != true) {
+                    return;
+                }
+            }
+
             // Load jquery?
             if (typeof(jQuery) == 'undefined') {
                 CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
@@ -45,10 +53,15 @@
                         var height = this.getContentElement('general', 'height').getInputElement().getValue();
                         var editorInstance = this.getParentEditor();
                         jQuery('body').oembed(inputCode, {
-                            onEmbed: function(e) {
+                            onEmbed: function (e) {
                                 if (typeof e.code === 'string') {
-                                    editorInstance.insertHtml(editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '" />' : '<div />');
+                                    editorInstance.insertHtml(jQuery('<div />').append(editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '" />' : '<div />').html());
                                     editorInstance.insertHtml(e.code);
+                                    
+                                    CKEDITOR.dialog.getCurrent().hide();
+                                } else if (typeof e.code[0].outerHTML === 'string') {
+                                    editorInstance.insertHtml(jQuery('<div />').append(editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '" />' : '<div />').html());
+                                    editorInstance.insertHtml(e.code[0].outerHTML);
                                     
                                     CKEDITOR.dialog.getCurrent().hide();
                                 } else {
@@ -97,6 +110,6 @@
                     }]
                 };
             });
-        }
+        }//
     });
 })();

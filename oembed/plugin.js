@@ -9,7 +9,7 @@
 (function() {
     CKEDITOR.plugins.add('oembed', {
         requires: ['dialog'],
-        lang: ['de', 'en', 'nl', 'fr', 'ru'],
+        lang: ['de', 'en', 'fr', 'nl', 'pl', 'ru'],
         init: function(editor) {
 
             // Check if content filter is disabled

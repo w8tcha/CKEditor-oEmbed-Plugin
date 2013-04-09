@@ -173,7 +173,7 @@ Licensed under the terms of the MIT License.
  2. In the CKEditor configuration file (config.js) add the following code:
 
 ````
-config.extraPlugins = '[ oembed ]';
+config.extraPlugins = 'oembed';
 ````
 
 In CKEditor 4.1 or higher you need to disable ACF in the Config

@@ -9,6 +9,6 @@ CKEDITOR.plugins.setLang('oembed', 'fr', {
 	invalidUrl : "Merci de fournir une URL valide !",
 	noEmbedCode : "Aucun code d'intégration trouvé ou le site n'est pas supporté !",
 	url : "URL:",
-	widthTitle : "Maximum Width for the embeded Content",
-	heightTitle : "Maximum Height for the embeded Content"
+	widthTitle : "Largeur maximale du conteneur.",
+	heightTitle : "Hauteur maximale du conteneur."
 });

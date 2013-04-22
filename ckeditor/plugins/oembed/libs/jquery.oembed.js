@@ -135,7 +135,10 @@
         // fix local
         if (protocol === "file:") {
             return "http://";
+        } else {
+            protocol += "//";
         }
+        
         return protocol;
     }
 
@@ -398,11 +401,11 @@
 				  });
 			  }
               oembedContainer.append('<br/>');
-			  try {
-				  oembedData.code.clone().appendTo(oembedContainer);
-			  } catch(e) {
-              oembedContainer.append(oembedData.code);
-			  }			
+              try {
+                  oembedData.code.clone().appendTo(oembedContainer);
+              } catch(e) {
+                  oembedContainer.append(oembedData.code);
+              }
               /* Make videos semi-responsive
               * If parent div width less than embeded iframe video then iframe gets shrunk to fit smaller width
               * If parent div width greater thans embed iframe use the max widht

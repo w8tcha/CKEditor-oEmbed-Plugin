@@ -139,6 +139,9 @@
                                     alert(editor.lang.oembed.noEmbedCode);
                                 }
                             },
+                            onError: function (externalUrl, embedProvider) {
+                                alert("We could not access the video at \"" + externalUrl + "\". Check video settings and try again.");
+                            },
                             maxHeight: maxHeight,
                             maxWidth: maxWidth,
                             useResponsiveResize: responsiveResize,

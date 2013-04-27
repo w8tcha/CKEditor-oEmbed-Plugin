@@ -140,7 +140,6 @@
                                 }
                             },
                             onError: function (externalUrl) {
-                                console.log(externalUrl);
                                 if (externalUrl.indexOf("vimeo.com") > 0) {
                                     alert(editor.lang.oembed.noVimeo);
                                 } else {

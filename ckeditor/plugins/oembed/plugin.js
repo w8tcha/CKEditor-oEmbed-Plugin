@@ -139,6 +139,15 @@
                                     alert(editor.lang.oembed.noEmbedCode);
                                 }
                             },
+                            onError: function (externalUrl) {
+                                console.log(externalUrl);
+                                if (externalUrl.indexOf("vimeo.com") > 0) {
+                                    alert(editor.lang.oembed.noVimeo);
+                                } else {
+                                    alert(editor.lang.oembed.Error);
+                                }
+                                
+                            },
                             maxHeight: maxHeight,
                             maxWidth: maxWidth,
                             useResponsiveResize: responsiveResize,

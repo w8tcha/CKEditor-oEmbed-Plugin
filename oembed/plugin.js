@@ -139,8 +139,14 @@
                                     alert(editor.lang.oembed.noEmbedCode);
                                 }
                             },
-                            onError: function (externalUrl, embedProvider) {
-                                alert("We could not access the video at \"" + externalUrl + "\". Check video settings and try again.");
+                            onError: function (externalUrl) {
+                                console.log(externalUrl);
+                                if (externalUrl.indexOf("vimeo.com") > 0) {
+                                    alert(editor.lang.oembed.noVimeo);
+                                } else {
+                                    alert(editor.lang.oembed.Error);
+                                }
+                                
                             },
                             maxHeight: maxHeight,
                             maxWidth: maxWidth,

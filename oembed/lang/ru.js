@@ -17,5 +17,7 @@ CKEDITOR.plugins.setLang('oembed', 'ru', {
 	noresize: "No Resize (use default)",
 	responsive: "Responsive Resize",
 	custom: "Specific Resize",
-	autoClose: "Automatically Close Dialog after Code is Embeded"
+	autoClose: "Automatically Close Dialog after Code is Embeded",
+	noVimeo: "The owner of this video has set domain restrictions and you will not be able to embed it on your website.",
+	Error: "Media Content could not been retrieved, please try a different URL."
 });

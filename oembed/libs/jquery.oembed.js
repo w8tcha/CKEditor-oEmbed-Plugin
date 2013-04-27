@@ -122,7 +122,7 @@
         afterEmbed: function() {},
         onEmbed: false,
         onError: function() {},
-        ajaxOptions: {}
+        ajaxOptions: { timeout: 2000 }
     };
     
     /*
@@ -243,7 +243,9 @@
             oembedData.code = result;
             success(oembedData, externalUrl, container);
           },
-          error: settings.onError.call(container, externalUrl, embedProvider)
+          error: function () {
+            settings.onError.call(container, externalUrl, embedProvider);
+          }
         }, settings.ajaxOptions || {});
         
         $.ajax(ajaxopts);
@@ -331,8 +333,10 @@
               oembedData.code = embedProvider.templateData(data);
               success(oembedData, externalUrl, container);
             },
-            error: settings.onError.call(container, externalUrl, embedProvider)
-            }, settings.ajaxOptions || {});
+            error: function () {
+              settings.onError.call(container, externalUrl, embedProvider);
+            }
+          }, settings.ajaxOptions || {});
             
           $.ajax( ajaxopts );
         }else {
@@ -362,7 +366,9 @@
                     }
                     success(oembedData, externalUrl, container);
                 },
-                error: settings.onError.call(container, externalUrl, embedProvider)
+                error: function () {
+                    settings.onError.call(container, externalUrl, embedProvider);
+                }
             }, settings.ajaxOptions || {});
 
         $.ajax(ajaxopts);

@@ -62,6 +62,42 @@
             String.prototype.beginsWith = function (string) {
                 return (this.indexOf(string) === 0);
             };
+            
+            function embedCode(url, instance, closeDialog, wrapperHtml, maxWidth, maxHeight, responsiveResize) {
+                jQuery('body').oembed(url, {
+                    onEmbed: function(e) {
+                        if (typeof e.code === 'string') {
+                            instance.insertHtml(wrapperHtml.html());
+                            instance.insertHtml(e.code);
+
+                            if (closeDialog) {
+                                CKEDITOR.dialog.getCurrent().hide();
+                            }
+                        } else if (typeof e.code[0].outerHTML === 'string') {
+                            instance.insertHtml(wrapperHtml.html());
+                            instance.insertHtml(e.code[0].outerHTML);
+
+                            if (closeDialog) {
+                                CKEDITOR.dialog.getCurrent().hide();
+                            }
+                        } else {
+                            alert(editor.lang.oembed.noEmbedCode);
+                        }
+                    },
+                    onError: function (externalUrl) {
+                        if (externalUrl.indexOf("vimeo.com") > 0) {
+                            alert(editor.lang.oembed.noVimeo);
+                        } else {
+                            alert(editor.lang.oembed.Error);
+                        }
+                                
+                    },
+                    maxHeight: maxHeight,
+                    maxWidth: maxWidth,
+                    useResponsiveResize: responsiveResize,
+                    embedMethod: 'editor'
+                });
+            }
 
             CKEDITOR.dialog.add('oembed', function(editor) {
                 return {
@@ -118,41 +154,27 @@
                         var editorInstance = this.getParentEditor();
                         
                         var closeDialog = this.getContentElement('general', 'autoCloseDialog').getValue();
+
+                        // support for multiple urls
+                        if (inputCode.indexOf(";") > 0) {
+                            var urls = inputCode.split(";");
+                            
+                            for (var i = 0; i < urls.length; i++) {
+                                var url = urls[i];
+
+                                if (url.length > 1 && url.beginsWith('http')) {
+                                    embedCode(url, editorInstance, false, wrapperHtml, maxWidth, maxHeight, responsiveResize);
+                                }
+                                // close after last
+                                if (i == urls.length -1) {
+                                    CKEDITOR.dialog.getCurrent().hide();
+                                }
+                            }
+                        } else {
+                            // single url
+                            embedCode(inputCode, editorInstance, closeDialog, wrapperHtml, maxWidth, maxHeight, responsiveResize);
+                        }
                         
-                        jQuery('body').oembed(inputCode, {
-                            onEmbed: function(e) {
-                                if (typeof e.code === 'string') {
-                                    editorInstance.insertHtml(wrapperHtml.html());
-                                    editorInstance.insertHtml(e.code);
-
-                                    if (closeDialog) {
-                                        CKEDITOR.dialog.getCurrent().hide();
-                                    }
-                                } else if (typeof e.code[0].outerHTML === 'string') {
-                                    editorInstance.insertHtml(wrapperHtml.html());
-                                    editorInstance.insertHtml(e.code[0].outerHTML);
-
-                                    if (closeDialog) {
-                                        CKEDITOR.dialog.getCurrent().hide();
-                                    }
-                                } else {
-                                    alert(editor.lang.oembed.noEmbedCode);
-                                }
-                            },
-                            onError: function (externalUrl) {
-                                console.log(externalUrl);
-                                if (externalUrl.indexOf("vimeo.com") > 0) {
-                                    alert(editor.lang.oembed.noVimeo);
-                                } else {
-                                    alert(editor.lang.oembed.Error);
-                                }
-                                
-                            },
-                            maxHeight: maxHeight,
-                            maxWidth: maxWidth,
-                            useResponsiveResize: responsiveResize,
-                            embedMethod: 'editor'
-                        });
                         return false;
                     },
                     contents: [{

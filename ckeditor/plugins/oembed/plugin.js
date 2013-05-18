@@ -19,16 +19,48 @@
             }
 
             // Load jquery?
-            if (typeof(jQuery) == 'undefined') {
-                CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
-                    if (typeof(jQuery.fn.oembed) == 'undefined') {
-                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
-                    }
-                });
+            loadjQueryLibaries();
 
-            } else if (typeof(jQuery.fn.oembed) == 'undefined') {
-                CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
-            }
+            CKEDITOR.tools.extend(CKEDITOR.editor.prototype, {
+                oEmbed: function (url, ev, maxWidth, maxHeight, responsiveResize) {
+
+                    if (url.length < 1 || url.indexOf('http') < 0) {
+                        console.log(editor.lang.oembed.invalidUrl);
+                        return false;
+                    }
+
+                    if (typeof (jQuery.fn.oembed) == 'undefined') {
+                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function () {
+
+                            embed();
+
+                        });
+                    } else {
+                        
+                        embed();
+                    }
+                    
+                    function embed() {
+                        if (maxWidth == null || maxWidth == 'undefined') {
+                            maxWidth = null;
+                        }
+
+                        if (maxHeight == null || maxHeight == 'undefined') {
+                            maxHeight = null;
+                        }
+
+                        if (responsiveResize == null || responsiveResize == 'undefined') {
+                            responsiveResize = false;
+                        }
+
+                        embedCode(url, editor, false, maxWidth, maxHeight, responsiveResize);
+
+                       
+                    }
+                    
+                    return true;
+                }
+            });
 
             editor.addCommand('oembed', new CKEDITOR.dialogCommand('oembed'));
             editor.ui.addButton('oembed', {
@@ -63,19 +95,62 @@
                 return (this.indexOf(string) === 0);
             };
             
-            function embedCode(url, instance, closeDialog, wrapperHtml, maxWidth, maxHeight, responsiveResize) {
+            function loadjQueryLibaries() {
+                if (typeof (jQuery) == 'undefined') {
+                    CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function () {
+                        if (typeof (jQuery.fn.oembed) == 'undefined') {
+                            CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
+                        }
+                    });
+
+                } else if (typeof (jQuery.fn.oembed) == 'undefined') {
+                    CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'));
+                }
+            };
+            
+            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         if (typeof e.code === 'string') {
-                            instance.insertHtml(wrapperHtml.html());
-                            instance.insertHtml(e.code);
+                            var divWrapper = new CKEDITOR.dom.element('div');
+
+                            if (editor.config.oembed_WrapperClass != null) {
+                                divWrapper.addClass(editor.config.oembed_WrapperClass);
+                            }
+
+                            var codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
+
+                            if (codeElement.$.tagName == "IFRAME") {
+
+                                var codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
+                                codeIframe.appendTo(divWrapper);
+                            } else {
+                                codeElement.appendTo(divWrapper);
+                            }
+
+                            instance.insertElement(divWrapper);
 
                             if (closeDialog) {
                                 CKEDITOR.dialog.getCurrent().hide();
                             }
                         } else if (typeof e.code[0].outerHTML === 'string') {
-                            instance.insertHtml(wrapperHtml.html());
-                            instance.insertHtml(e.code[0].outerHTML);
+                            var divWrapper = new CKEDITOR.dom.element('div');
+
+                            if (editor.config.oembed_WrapperClass != null) {
+                                divWrapper.addClass(editor.config.oembed_WrapperClass);
+                            }
+
+                            var codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
+
+                            if (codeElement.$.tagName == "IFRAME") {
+
+                                var codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
+                                codeIframe.appendTo(divWrapper);
+                            } else {
+                                codeElement.appendTo(divWrapper);
+                            }
+
+                            instance.insertElement(divWrapper);
 
                             if (closeDialog) {
                                 CKEDITOR.dialog.getCurrent().hide();
@@ -133,8 +208,6 @@
                         var maxHeight = null;
                         var responsiveResize = false;
                         
-                        var wrapperHtml = jQuery('<div />').append(editor.config.oembed_WrapperClass != null ? '<div class="' + editor.config.oembed_WrapperClass + '" />' : '<div />');
-
                         if (resizetype == "noresize") {
                             responsiveResize = false;
                         } else {
@@ -163,7 +236,7 @@
                                 var url = urls[i];
 
                                 if (url.length > 1 && url.beginsWith('http')) {
-                                    embedCode(url, editorInstance, false, wrapperHtml, maxWidth, maxHeight, responsiveResize);
+                                    embedCode(url, editorInstance, false, maxWidth, maxHeight, responsiveResize);
                                 }
                                 // close after last
                                 if (i == urls.length -1) {
@@ -172,7 +245,7 @@
                             }
                         } else {
                             // single url
-                            embedCode(inputCode, editorInstance, closeDialog, wrapperHtml, maxWidth, maxHeight, responsiveResize);
+                            embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize);
                         }
                         
                         return false;

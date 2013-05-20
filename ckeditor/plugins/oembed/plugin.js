@@ -22,7 +22,7 @@
             loadjQueryLibaries();
 
             CKEDITOR.tools.extend(CKEDITOR.editor.prototype, {
-                oEmbed: function (url, ev, maxWidth, maxHeight, responsiveResize) {
+                oEmbed: function (url, maxWidth, maxHeight, responsiveResize) {
 
                     if (url.length < 1 || url.indexOf('http') < 0) {
                         console.log(editor.lang.oembed.invalidUrl);
@@ -110,19 +110,20 @@
             
             function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize) {
                 jQuery('body').oembed(url, {
-                    onEmbed: function(e) {
+                    onEmbed: function (e) {
+                        var divWrapper = new CKEDITOR.dom.element('div');
+                        var codeElement, codeIframe;
+                        
                         if (typeof e.code === 'string') {
-                            var divWrapper = new CKEDITOR.dom.element('div');
-
                             if (editor.config.oembed_WrapperClass != null) {
                                 divWrapper.addClass(editor.config.oembed_WrapperClass);
                             }
 
-                            var codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
+                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
 
                             if (codeElement.$.tagName == "IFRAME") {
 
-                                var codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
+                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {
                                 codeElement.appendTo(divWrapper);
@@ -134,17 +135,16 @@
                                 CKEDITOR.dialog.getCurrent().hide();
                             }
                         } else if (typeof e.code[0].outerHTML === 'string') {
-                            var divWrapper = new CKEDITOR.dom.element('div');
 
                             if (editor.config.oembed_WrapperClass != null) {
                                 divWrapper.addClass(editor.config.oembed_WrapperClass);
                             }
 
-                            var codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
+                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
 
                             if (codeElement.$.tagName == "IFRAME") {
 
-                                var codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
+                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {
                                 codeElement.appendTo(divWrapper);

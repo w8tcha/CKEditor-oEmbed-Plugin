@@ -260,11 +260,10 @@
           if(!embedProvider.nocache) src += '&jqoemcache='+rand(5);
           if (embedProvider.apikey) src = src.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
             
-          
-          // 
           if (settings.maxHeight && settings.maxWidth) {
 
               if (settings.useResponsiveResize) {
+                  
                   var ratio = 0; // Used for aspect ratio
 
                   var newWidth = width;
@@ -491,10 +490,59 @@
             extraSettings.yql = {from:'json'
               , apiendpoint: this.apiendpoint
               , url: function(externalurl){return this.apiendpoint+'?format=json&url='+externalurl; }
-              , datareturn:function(results){
+              , datareturn: function (results) {
+                 
                   if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
 						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '"  />';
-					}
+                  } else if (results.json.html.indexOf("iframe")) {
+                      var html = $.parseHTML(results.json.html);
+
+                      var width = html[0].width;
+                      var height = html[0].height;
+
+                      if (settings.maxHeight && settings.maxWidth) {
+
+                          if (settings.useResponsiveResize) {
+
+                              var ratio;
+
+                              var newWidth = width;
+                              var newHeight = height;
+
+                              // Check if the current width is larger than the max
+                              if (width > settings.maxWidth) {
+                                  ratio = settings.maxWidth / width;
+
+                                  newWidth = settings.maxWidth;
+                                  newHeight = height * ratio;
+
+                                  // reset
+                                  height = height * ratio;
+                                  width = width * ratio;
+                              }
+
+                              // Check if current height is larger than max
+                              if (height > settings.maxHeight) {
+                                  ratio = settings.maxHeight / height;
+
+                                  newHeight = settings.maxHeight;
+                                  newWidth = width * ratio;
+                              }
+
+                              height = newHeight;
+                              width = newWidth;
+                          } else {
+                              height = settings.maxHeight;
+                              width = settings.maxWidth;
+                          }
+
+                      }
+
+                      html[0].width = width;
+                      html[0].height = height;
+                      
+                      return html[0].outerHTML;
+                  }
 					return results.json.html || '';
               }
             };
@@ -518,13 +566,13 @@
     $.fn.oembed.providers = [
     
     //Video
-    new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+", "youtube.com/embed"], checkProtocol() + 'www.youtube.com/embed/$1?wmode=transparent', {
-        templateRegex: /.*(?:v\=|be\/|embed\/)([\w\-]+)&?.*/,embedtag: {tag: 'iframe',width: '425',height: '349'}
-    }),
+    //new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+", "youtube.com/embed"], checkProtocol() + 'www.youtube.com/embed/$1?wmode=transparent', {
+    //    templateRegex: /.*(?:v\=|be\/|embed\/)([\w\-]+)&?.*/,embedtag: {tag: 'iframe',width: '425',height: '349'}
+    //}),
     
-    //new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], checkProtocol() + 'www.youtube.com/oembed', {useYQL:'json'}), 
-    //new $.fn.oembed.OEmbedProvider("youtubeiframe", "video", ["youtube.com/embed"],  "$1?wmode=transparent",
-    //  {templateRegex:/(.*)/,embedtag : {tag: 'iframe', width:'425',height: '349'}}), 
+    new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], checkProtocol() + 'www.youtube.com/oembed', {useYQL:'json'}), 
+    new $.fn.oembed.OEmbedProvider("youtubeiframe", "video", ["youtube.com/embed"],  "$1?wmode=transparent",
+      {templateRegex:/(.*)/,embedtag : {tag: 'iframe', width:'425',height: '349'}}), 
     new $.fn.oembed.OEmbedProvider("wistia", "video", ["wistia.com/m/.+", "wistia.com/embed/.+","wi.st/m/.+","wi.st/embed/.+"], 'http://fast.wistia.com/oembed', {useYQL:'json'}), 
     new $.fn.oembed.OEmbedProvider("xtranormal", "video", ["xtranormal\\.com/watch/.+"], "http://www.xtranormal.com/xtraplayr/$1/$2", {
         templateRegex: /.*com\/watch\/([\w\-]+)\/([\w\-]+).*/,embedtag: {tag: 'iframe',width: '320',height: '269'}}), 

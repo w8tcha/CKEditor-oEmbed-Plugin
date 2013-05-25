@@ -8,7 +8,7 @@
 
 (function() {
     CKEDITOR.plugins.add('oembed', {
-        requires: ['dialog'],
+        requires: ['dialog', 'iframe', 'fakeobjects'],
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'ru'],
         init: function(editor) {
             // Check if content filter is disabled
@@ -31,12 +31,9 @@
 
                     if (typeof (jQuery.fn.oembed) == 'undefined') {
                         CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function () {
-
                             embed();
-
                         });
                     } else {
-                        
                         embed();
                     }
                     
@@ -122,8 +119,7 @@
                             codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
 
                             if (codeElement.$.tagName == "IFRAME") {
-
-                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
+								codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {
                                 codeElement.appendTo(divWrapper);
@@ -143,7 +139,6 @@
                             codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
 
                             if (codeElement.$.tagName == "IFRAME") {
-
                                 codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {

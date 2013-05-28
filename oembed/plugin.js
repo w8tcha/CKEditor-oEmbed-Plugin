@@ -6,7 +6,7 @@
 * Plugin for: http://ckeditor.com/license (GPL/LGPL/MPL: http://ckeditor.com/license)
 */
 
-(function() {
+(function () {
     CKEDITOR.plugins.add('oembed', {
         requires: ['dialog', 'iframe', 'fakeobjects'],
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'ru'],
@@ -16,6 +16,10 @@
                 if (editor.config.allowedContent != true) {
                     return;
                 }
+            }
+            
+            if (editor.config.oembed_ShowIframePreview ) {
+                editor.plugins.oembed.requires = ['dialog'];
             }
 
             // Load jquery?
@@ -118,7 +122,7 @@
 
                             codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
 
-                            if (codeElement.$.tagName == "IFRAME") {
+                            if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
 								codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {
@@ -138,7 +142,7 @@
 
                             codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
 
-                            if (codeElement.$.tagName == "IFRAME") {
+                            if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
                                 codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {
@@ -169,7 +173,7 @@
                 });
             }
 
-            CKEDITOR.dialog.add('oembed', function(editor) {
+            CKEDITOR.dialog.add('oembed', function (editor) {
                 return {
                     title: editor.lang.oembed.title,
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
@@ -262,6 +266,7 @@
                                 title: editor.lang.oembed.pasteUrl
                             }, {
                                 type: 'hbox',
+
                                 children: [{
                                         id: 'resizeType',
                                         type: 'select',
@@ -318,4 +323,7 @@
             });
         }//
     });
-})();
+    
+}
+
+)();

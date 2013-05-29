@@ -286,13 +286,13 @@
                                                 id: 'maxWidth',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.maxWidth,
-                                                title: editor.lang.oembed.maxWidthTitle,
+                                                title: editor.lang.oembed.maxWidthTitle
                                             }, {
                                                 type: 'text',
                                                 id: 'maxHeight',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.maxHeight,
-                                                title: editor.lang.oembed.maxHeightTitle,
+                                                title: editor.lang.oembed.maxHeightTitle
                                             }]
                                     }, {
                                         type: 'hbox',
@@ -302,13 +302,13 @@
                                                 id: 'width',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.width,
-                                                title: editor.lang.oembed.widthTitle,
+                                                title: editor.lang.oembed.widthTitle
                                             }, {
                                                 type: 'text',
                                                 id: 'height',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.height,
-                                                title: editor.lang.oembed.heightTitle,
+                                                title: editor.lang.oembed.heightTitle
                                             }]
                                     }]
                             }, {

@@ -8,7 +8,7 @@
 
 (function () {
     CKEDITOR.plugins.add('oembed', {
-        requires: ['dialog', 'iframe', 'fakeobjects'],
+        requires: ['dialog'],
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'ru'],
         init: function(editor) {
             // Check if content filter is disabled
@@ -21,6 +21,10 @@
             if (editor.config.oembed_ShowIframePreview ) {
                 editor.plugins.oembed.requires = ['dialog'];
             }
+			else
+			{
+				 editor.plugins.oembed.requires = ['dialog', 'iframe', 'fakeobjects'];
+			}
 
             // Load jquery?
             loadjQueryLibaries();
@@ -114,6 +118,10 @@
                     onEmbed: function (e) {
                         var divWrapper = new CKEDITOR.dom.element('div');
                         var codeElement, codeIframe;
+						
+						if (editor.config.oembed_ShowIframePreview ==   null || editor.config.oembed_ShowIframePreview == 'undefined') {
+							editor.config.oembed_ShowIframePreview = false;
+						}
                         
                         if (typeof e.code === 'string') {
                             if (editor.config.oembed_WrapperClass != null) {
@@ -121,6 +129,8 @@
                             }
 
                             codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
+							
+							console.log(editor.config.oembed_ShowIframePreview);
 
                             if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
 								codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
@@ -141,8 +151,8 @@
                             }
 
                             codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
-
-                            if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
+							
+							if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
                                 codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
                                 codeIframe.appendTo(divWrapper);
                             } else {

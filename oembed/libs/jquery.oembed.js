@@ -300,7 +300,6 @@
               }
               
             }
-
             var code = $('<'+tag+'/>')
             .attr('src',src)
             .attr('width',width)
@@ -316,8 +315,7 @@
           if(tag=='iframe')
             code
               .attr('scrolling',embedProvider.embedtag.scrolling || "no")
-              .attr('frameborder',embedProvider.embedtag.frameborder || "0");
-            
+              .attr('frameborder',embedProvider.embedtag.frameborder || "0");            
             
           var oembedData = {code: code};
           success(oembedData, externalUrl,container);
@@ -502,6 +500,12 @@
                   if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
 						return '<img src="' + (results.json.url || results.json.thumbnail_url) + '"  />';
                   } else if (results.json.html.indexOf("iframe")) {
+
+                      // Quick fix to handle attribute less html5 properties in ckeditor
+                      if (results.json.html.indexOf("allowfullscreen>")) {
+                          results.json.html = results.json.html.replace('allowfullscreen>', 'allowfullscreen="false">');
+                      }
+                      
                       var html = $.parseHTML(results.json.html);
 
                       var width = html[0].width;

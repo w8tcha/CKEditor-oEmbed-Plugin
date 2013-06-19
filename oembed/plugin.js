@@ -1,4 +1,4 @@
-﻿/*
+/*!
 * oEmbed Plugin plugin
 * Copyright (c) Ingo Herbote
 * Licensed under the MIT license

@@ -300,7 +300,7 @@
                                 title: editor.lang.oembed.pasteUrl
                             }, {
                                 type: 'hbox',
-
+                                widths: ['50%', 'auto', 'auto'],
                                 children: [{
                                         id: 'resizeType',
                                         type: 'select',

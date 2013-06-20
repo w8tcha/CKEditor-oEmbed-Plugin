@@ -1,6 +1,5 @@
-﻿/*!
+﻿/**
 * oEmbed Plugin plugin
-* Copyright (c) Ingo Herbote
 * Licensed under the MIT license
 * jQuery Embed Plugin: http://code.google.com/p/jquery-oembed/ (MIT License)
 * Plugin for: http://ckeditor.com/license (GPL/LGPL/MPL: http://ckeditor.com/license)
@@ -45,14 +44,7 @@
 				);
 		},
 		init: function (editor) {
-            // Check if content filter is disabled
-            /*if (CKEDITOR.version >= 4.1) {
-                if (editor.config.allowedContent != true) {
-                    //return;
-                }
-            }*/
-			
-			if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
+            if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
 				editor.config.oembed_ShowIframePreview = false;
 			}
              
@@ -89,8 +81,6 @@
                         }
 
                         embedCode(url, editor, false, maxWidth, maxHeight, responsiveResize);
-
-                       
                     }
                     
                     return true;
@@ -234,33 +224,44 @@
                         }
                     },
                     onOk: function () {
-                        var inputCode = this.getValueOf('general', 'embedCode');
+                        var inputCode = this.getValueOf('general', 'embedCode'),
+                            resizetype = this.getContentElement('general', 'resizeType').
+                                getValue(),
+                            maxWidth = null,
+                            maxHeight = null,
+                            responsiveResize = false,
+                            editorInstance = this.getParentEditor(),
+                            closeDialog = this.getContentElement('general', 'autoCloseDialog').
+                                getValue();
+                        
                         if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
                             alert(editor.lang.oembed.invalidUrl);
                             return false;
                         }
-                        var resizetype = this.getContentElement('general', 'resizeType').getValue(),
-                            maxWidth = null,
-                            maxHeight = null,
-                            responsiveResize = false;
-                        
+
                         if (resizetype == "noresize") {
                             responsiveResize = false;
                         } else {
                             if (resizetype == "responsive") {
-                                maxWidth = this.getContentElement('general', 'maxWidth').getInputElement().getValue();
-                                maxHeight = this.getContentElement('general', 'maxHeight').getInputElement().getValue();
-                                
+                                maxWidth = this.getContentElement('general', 'maxWidth').
+                                    getInputElement().
+                                    getValue();
+                                maxHeight = this.getContentElement('general', 'maxHeight').
+                                    getInputElement().
+                                    getValue();
+
                                 responsiveResize = true;
                             } else if (resizetype == "custom") {
-                                maxWidth = this.getContentElement('general', 'width').getInputElement().getValue();
-                                maxHeight = this.getContentElement('general', 'height').getInputElement().getValue();
-                                
+                                maxWidth = this.getContentElement('general', 'width').
+                                    getInputElement().
+                                    getValue();
+                                maxHeight = this.getContentElement('general', 'height').
+                                    getInputElement().
+                                    getValue();
+
                                 responsiveResize = false;
                             }
-                        }                        
-                        var editorInstance = this.getParentEditor(),
-                            closeDialog = this.getContentElement('general', 'autoCloseDialog').getValue();
+                        }
 
                         // support for multiple urls
                         if (inputCode.indexOf(";") > 0) {
@@ -300,6 +301,7 @@
                                 title: editor.lang.oembed.pasteUrl
                             }, {
                                 type: 'hbox',
+                                widths: ['50%', '50%'],
                                 children: [{
                                         id: 'resizeType',
                                         type: 'select',
@@ -314,8 +316,8 @@
                                     }, {
                                         type: 'hbox',
                                         id: 'maxSizeBox',
-                                        widths: ['50%', '50%'],
-                                        style: 'float:left;position:absolute;left:33%;width:150px',
+                                        widths: ['120px', '120px'],
+                                        style: 'float:left;position:absolute;left:58%;width:200px',
                                         children: [{
                                             type: 'text',
                                             width:'100px',
@@ -326,7 +328,7 @@
                                             }, {
                                                 type: 'text',
                                                 id: 'maxHeight',
-                                                width: '100px',
+                                                width: '120px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.maxHeight,
                                                 title: editor.lang.oembed.maxHeightTitle
@@ -334,8 +336,8 @@
                                     }, {
                                         type: 'hbox',
                                         id: 'sizeBox',
-                                        widths: ['50%', '50%'],
-                                        style: 'float:left;position:absolute;left:33%;width:150px',
+                                        widths: ['120px', '120px'],
+                                        style: 'float:left;position:absolute;left:58%;width:200px',
                                         children: [{
                                                 type: 'text',
                                                 id: 'width',
@@ -346,7 +348,7 @@
                                             }, {
                                                 type: 'text',
                                                 id: 'height',
-                                                width: '100px',
+                                                width: '120px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.height,
                                                 title: editor.lang.oembed.heightTitle

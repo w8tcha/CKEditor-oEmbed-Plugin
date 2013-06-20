@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 * oEmbed Plugin plugin
 * Copyright (c) Ingo Herbote
 * Licensed under the MIT license
@@ -300,7 +300,6 @@
                                 title: editor.lang.oembed.pasteUrl
                             }, {
                                 type: 'hbox',
-
                                 children: [{
                                         id: 'resizeType',
                                         type: 'select',
@@ -315,15 +314,19 @@
                                     }, {
                                         type: 'hbox',
                                         id: 'maxSizeBox',
+                                        widths: ['50%', '50%'],
+                                        style: 'float:left;position:absolute;left:33%;width:150px',
                                         children: [{
-                                                type: 'text',
-                                                id: 'maxWidth',
+                                            type: 'text',
+                                            width:'100px',
+                                            id: 'maxWidth',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.maxWidth,
                                                 title: editor.lang.oembed.maxWidthTitle
                                             }, {
                                                 type: 'text',
                                                 id: 'maxHeight',
+                                                width: '100px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.maxHeight,
                                                 title: editor.lang.oembed.maxHeightTitle
@@ -331,15 +334,19 @@
                                     }, {
                                         type: 'hbox',
                                         id: 'sizeBox',
+                                        widths: ['50%', '50%'],
+                                        style: 'float:left;position:absolute;left:33%;width:150px',
                                         children: [{
                                                 type: 'text',
                                                 id: 'width',
+                                                width: '100px',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.width,
                                                 title: editor.lang.oembed.widthTitle
                                             }, {
                                                 type: 'text',
                                                 id: 'height',
+                                                width: '100px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.height,
                                                 title: editor.lang.oembed.heightTitle

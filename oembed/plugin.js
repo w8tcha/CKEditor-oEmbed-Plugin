@@ -31,24 +31,25 @@
 				});
 			}
 		},
-		onLoad: function () {
-			CKEDITOR.addCss('img.cke_iframe' +
-				'{' +
-					'background-image: url(' + CKEDITOR.getUrl(this.path.replace("oembed", "iframe") + 'images/placeholder.png') + ');' +
-					'background-position: center center;' +
-					'background-repeat: no-repeat;' +
-					'border: 1px solid #a9a9a9;' +
-					'width: 80px;' +
-					'height: 80px;' +
-				'}'
-				);
-		},
-		init: function (editor) {
-            if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
-				editor.config.oembed_ShowIframePreview = false;
-			}
-             
-            // Load jquery?
+        init: function(editor) {
+		    if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
+		        editor.config.oembed_ShowIframePreview = false;
+		    }
+
+		    if (!editor.plugins.iframe && !editor.config.oembed_ShowIframePreview) {
+		        CKEDITOR.addCss('img.cke_iframe' +
+		            '{' +
+		            'background-image: url(' + CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'images/placeholder.png') + ');' +
+		            'background-position: center center;' +
+		            'background-repeat: no-repeat;' +
+		            'border: 1px solid #a9a9a9;' +
+		            'width: 80px;' +
+		            'height: 80px;' +
+		            '}'
+		        );
+		    }
+
+		    // Load jquery?
             loadjQueryLibaries();
 
             CKEDITOR.tools.extend(CKEDITOR.editor.prototype, {
@@ -294,7 +295,7 @@
                             }, {
                                 type: 'text',
                                 id: 'embedCode',
-                                focus: function() {
+                                focus: function () {
                                     this.getElement().focus();
                                 },
                                 label: editor.lang.oembed.url,

@@ -31,8 +31,15 @@
 				});
 			}
 		},
-        init: function(editor) {
-		    if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
+        init: function (editor) {
+            // Check if content filter is disabled 
+            if (CKEDITOR.version >= 4.1) {
+                if (editor.config.allowedContent != true) {
+                    return;
+                }
+            }
+            
+            if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
 		        editor.config.oembed_ShowIframePreview = false;
 		    }
 
@@ -92,7 +99,7 @@
             editor.ui.addButton('oembed', {
                 label: editor.lang.oembed.button,
                 command: 'oembed',
-                icon: this.path + 'images/icon.png'
+                icon: this.path + "images/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "icon.png"
             });
 
             var resizeTypeChanged = function () {

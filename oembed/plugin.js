@@ -8,7 +8,7 @@
 (function () {
     CKEDITOR.plugins.add('oembed', {
         requires: ['dialog'],
-        lang: ['de', 'en', 'fr', 'nl', 'pl', 'ru'],
+        lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru'],
         afterInit: function (editor) {
             
             var dataProcessor = editor.dataProcessor,
@@ -35,7 +35,7 @@
             // Check if content filter is disabled 
             if (CKEDITOR.version >= 4.1) {
                 if (editor.config.allowedContent != true) {
-                    return;
+                    //return;
                 }
             }
             
@@ -95,7 +95,10 @@
                 }
             });
 
-            editor.addCommand('oembed', new CKEDITOR.dialogCommand('oembed'));
+            editor.addCommand('oembed', new CKEDITOR.dialogCommand('oembed', {
+                allowedContent: 'div(' + (editor.config.oembed_WrapperClass != null ? "" + editor.config.oembed_WrapperClass : "*") + ');div iframe[*]'
+            }));
+            
             editor.ui.addButton('oembed', {
                 label: editor.lang.oembed.button,
                 command: 'oembed',

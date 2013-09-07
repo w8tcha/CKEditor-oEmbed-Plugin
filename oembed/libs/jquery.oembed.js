@@ -128,11 +128,6 @@
         ajaxOptions: { timeout: 2000 }
     };
 
-    /*
-        * check protocol
-    * @return The protocol correct.
-    */
-
     function checkProtocol() {
         var protocol = window.location.protocol;
 
@@ -140,10 +135,8 @@
         if (protocol === "file:") {
             return "http://";
         } else {
-            protocol += "//";
+            return "//";
         }
-
-        return protocol;
     }
 
     /* Private functions */

@@ -11,47 +11,8 @@
         hidpi: true,
         requires: 'widget,dialog',
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru'],
-        afterInit: function(editor) {
-
-            /*var dataProcessor = editor.dataProcessor,
-                dataFilter = dataProcessor && dataProcessor.dataFilter;
-
-            if (editor.config.oembed_ShowIframePreview) {
-                if (dataFilter.elementsRules.iframe) {
-                    delete dataFilter.elementsRules.iframe;
-                }
-                return;
-            }
-
-            if (dataFilter && !dataFilter.elementsRules.iframe) {
-
-                dataFilter.addRules({
-                    elements: {
-                        iframe: function(element) {
-                            return editor.createFakeParserElement(element, 'cke_iframe', 'iframe', true);
-                        }
-                    }
-                });
-            }*/
-        },
+        version: 1.13,
         init: function(editor) {
-            if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
-                editor.config.oembed_ShowIframePreview = false;
-            }
-
-            if (!editor.plugins.iframe && !editor.config.oembed_ShowIframePreview) {
-                CKEDITOR.addCss('img.cke_iframe' +
-                    '{' +
-                    'background-image: url(' + CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'images/placeholder.png') + ');' +
-                    'background-position: center center;' +
-                    'background-repeat: no-repeat;' +
-                    'border: 1px solid #a9a9a9;' +
-                    'width: 80px;' +
-                    'height: 80px;' +
-                    '}'
-                );
-            }
-
             // Load jquery?
             loadjQueryLibaries();
 
@@ -150,44 +111,21 @@
             function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, widget) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
-                        var codeElement,
-                            codeIframe,
-                            elementAdded = false;
+                        var elementAdded = false;
 
                         if (typeof e.code === 'string') {
-                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
-
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
-
-                            /*if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
-                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
-
-                                widget.element.appendHtml(codeIframe.$.outerHTML);
-                            } else {
-                                widget.element.appendHtml(e.code);
-                            }*/
                             
                             widget.element.appendHtml(e.code);
 
                             elementAdded = true;
                         } else if (typeof e.code[0].outerHTML === 'string') {
 
-                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
-
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
-
-                            /*if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
-                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
-
-                                widget.element.appendHtml(codeIframe.$.outerHTML);
-
-                            } else {
-                                widget.element.appendHtml(e.code[0].outerHTML);
-                            }*/
                             
                             widget.element.appendHtml(e.code[0].outerHTML);
                             
@@ -284,19 +222,19 @@
                                         responsiveResize = false;
                                     } else {
                                         if (resizetype == "responsive") {
-                                            maxWidth = this.getContentElement('general', 'maxWidth').
+                                            maxWidth = CKEDITOR.dialog.getCurrent().getContentElement('general', 'maxWidth').
                                                 getInputElement().
                                                 getValue();
-                                            maxHeight = this.getContentElement('general', 'maxHeight').
+                                            maxHeight = CKEDITOR.dialog.getCurrent().getContentElement('general', 'maxHeight').
                                                 getInputElement().
                                                 getValue();
 
                                             responsiveResize = true;
                                         } else if (resizetype == "custom") {
-                                            maxWidth = this.getContentElement('general', 'width').
+                                            maxWidth = CKEDITOR.dialog.getCurrent().getContentElement('general', 'width').
                                                 getInputElement().
                                                 getValue();
-                                            maxHeight = this.getContentElement('general', 'height').
+                                            maxHeight = CKEDITOR.dialog.getCurrent().getContentElement('general', 'height').
                                                 getInputElement().
                                                 getValue();
 
@@ -322,7 +260,8 @@
                                         // single url
                                         embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, widget);
                                     }
-                                    widget.setData('oembed', this.getValue());
+                                    
+                                    widget.setData('oembed', inputCode);
                                 }
                             }, {
                                 type: 'hbox',

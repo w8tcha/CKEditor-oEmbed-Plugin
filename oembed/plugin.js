@@ -5,33 +5,25 @@
 * Plugin for: http://ckeditor.com/license (GPL/LGPL/MPL: http://ckeditor.com/license)
 */
 
-(function() {
+(function () {
     CKEDITOR.plugins.add('oembed', {
         icons: 'oembed',
         hidpi: true,
         requires: 'widget,dialog',
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru'],
         version: 1.13,
-        init: function(editor) {
+        init: function (editor) {
             // Load jquery?
             loadjQueryLibaries();
 
             CKEDITOR.tools.extend(CKEDITOR.editor.prototype, {
-                oEmbed: function(url, maxWidth, maxHeight, responsiveResize) {
+                oEmbed: function (url, maxWidth, maxHeight, responsiveResize) {
 
                     if (url.length < 1 || url.indexOf('http') < 0) {
                         alert(editor.lang.oembed.invalidUrl);
                         return false;
                     }
-
-                    if (typeof(jQuery.fn.oembed) === 'undefined') {
-                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function() {
-                            embed();
-                        });
-                    } else {
-                        embed();
-                    }
-
+                    
                     function embed() {
                         if (maxWidth == null || maxWidth == 'undefined') {
                             maxWidth = null;
@@ -46,6 +38,14 @@
                         }
 
                         embedCode(url, editor, false, maxWidth, maxHeight, responsiveResize);
+                    }
+
+                    if (typeof(jQuery.fn.oembed) === 'undefined') {
+                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function() {
+                            embed();
+                        });
+                    } else {
+                        embed();
                     }
 
                     return true;
@@ -203,14 +203,15 @@
                                 },
                                 commit: function(widget) {
 
-                                    var inputCode = CKEDITOR.dialog.getCurrent().getValueOf('general', 'embedCode'),
-                                        resizetype = CKEDITOR.dialog.getCurrent().getContentElement('general', 'resizeType').
+                                    var dialog = CKEDITOR.dialog.getCurrent(),
+                                        inputCode = dialog.getValueOf('general', 'embedCode'),
+                                        resizetype = dialog.getContentElement('general', 'resizeType').
                                             getValue(),
                                         maxWidth = null,
                                         maxHeight = null,
                                         responsiveResize = false,
-                                        editorInstance = CKEDITOR.dialog.getCurrent().getParentEditor(),
-                                        closeDialog = CKEDITOR.dialog.getCurrent().getContentElement('general', 'autoCloseDialog').
+                                        editorInstance = dialog.getParentEditor(),
+                                        closeDialog = dialog.getContentElement('general', 'autoCloseDialog').
                                             getValue();
 
                                     if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
@@ -222,19 +223,19 @@
                                         responsiveResize = false;
                                     } else {
                                         if (resizetype == "responsive") {
-                                            maxWidth = CKEDITOR.dialog.getCurrent().getContentElement('general', 'maxWidth').
+                                            maxWidth = dialog.getContentElement('general', 'maxWidth').
                                                 getInputElement().
                                                 getValue();
-                                            maxHeight = CKEDITOR.dialog.getCurrent().getContentElement('general', 'maxHeight').
+                                            maxHeight = dialog.getContentElement('general', 'maxHeight').
                                                 getInputElement().
                                                 getValue();
 
                                             responsiveResize = true;
                                         } else if (resizetype == "custom") {
-                                            maxWidth = CKEDITOR.dialog.getCurrent().getContentElement('general', 'width').
+                                            maxWidth = dialog.getContentElement('general', 'width').
                                                 getInputElement().
                                                 getValue();
-                                            maxHeight = CKEDITOR.dialog.getCurrent().getContentElement('general', 'height').
+                                            maxHeight = dialog.getContentElement('general', 'height').
                                                 getInputElement().
                                                 getValue();
 

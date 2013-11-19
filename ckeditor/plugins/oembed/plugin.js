@@ -5,72 +5,25 @@
 * Plugin for: http://ckeditor.com/license (GPL/LGPL/MPL: http://ckeditor.com/license)
 */
 
-(function() {
+(function () {
     CKEDITOR.plugins.add('oembed', {
         icons: 'oembed',
         hidpi: true,
         requires: 'widget,dialog',
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru'],
-        afterInit: function(editor) {
-
-            /*var dataProcessor = editor.dataProcessor,
-                dataFilter = dataProcessor && dataProcessor.dataFilter;
-
-            if (editor.config.oembed_ShowIframePreview) {
-                if (dataFilter.elementsRules.iframe) {
-                    delete dataFilter.elementsRules.iframe;
-                }
-                return;
-            }
-
-            if (dataFilter && !dataFilter.elementsRules.iframe) {
-
-                dataFilter.addRules({
-                    elements: {
-                        iframe: function(element) {
-                            return editor.createFakeParserElement(element, 'cke_iframe', 'iframe', true);
-                        }
-                    }
-                });
-            }*/
-        },
-        init: function(editor) {
-            if (editor.config.oembed_ShowIframePreview == null || editor.config.oembed_ShowIframePreview == 'undefined') {
-                editor.config.oembed_ShowIframePreview = false;
-            }
-
-            if (!editor.plugins.iframe && !editor.config.oembed_ShowIframePreview) {
-                CKEDITOR.addCss('img.cke_iframe' +
-                    '{' +
-                    'background-image: url(' + CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'images/placeholder.png') + ');' +
-                    'background-position: center center;' +
-                    'background-repeat: no-repeat;' +
-                    'border: 1px solid #a9a9a9;' +
-                    'width: 80px;' +
-                    'height: 80px;' +
-                    '}'
-                );
-            }
-
+        version: 1.13,
+        init: function (editor) {
             // Load jquery?
             loadjQueryLibaries();
 
             CKEDITOR.tools.extend(CKEDITOR.editor.prototype, {
-                oEmbed: function(url, maxWidth, maxHeight, responsiveResize) {
+                oEmbed: function (url, maxWidth, maxHeight, responsiveResize) {
 
                     if (url.length < 1 || url.indexOf('http') < 0) {
                         alert(editor.lang.oembed.invalidUrl);
                         return false;
                     }
-
-                    if (typeof(jQuery.fn.oembed) === 'undefined') {
-                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function() {
-                            embed();
-                        });
-                    } else {
-                        embed();
-                    }
-
+                    
                     function embed() {
                         if (maxWidth == null || maxWidth == 'undefined') {
                             maxWidth = null;
@@ -85,6 +38,14 @@
                         }
 
                         embedCode(url, editor, false, maxWidth, maxHeight, responsiveResize);
+                    }
+
+                    if (typeof(jQuery.fn.oembed) === 'undefined') {
+                        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js'), function() {
+                            embed();
+                        });
+                    } else {
+                        embed();
                     }
 
                     return true;
@@ -150,44 +111,21 @@
             function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, widget) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
-                        var codeElement,
-                            codeIframe,
-                            elementAdded = false;
+                        var elementAdded = false;
 
                         if (typeof e.code === 'string') {
-                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code);
-
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
-
-                            /*if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
-                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
-
-                                widget.element.appendHtml(codeIframe.$.outerHTML);
-                            } else {
-                                widget.element.appendHtml(e.code);
-                            }*/
                             
                             widget.element.appendHtml(e.code);
 
                             elementAdded = true;
                         } else if (typeof e.code[0].outerHTML === 'string') {
 
-                            codeElement = CKEDITOR.dom.element.createFromHtml(e.code[0].outerHTML);
-
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
-
-                            /*if (codeElement.$.tagName == "IFRAME" && editor.config.oembed_ShowIframePreview === false) {
-                                codeIframe = editor.createFakeElement(codeElement, 'cke_iframe', 'iframe', true);
-
-                                widget.element.appendHtml(codeIframe.$.outerHTML);
-
-                            } else {
-                                widget.element.appendHtml(e.code[0].outerHTML);
-                            }*/
                             
                             widget.element.appendHtml(e.code[0].outerHTML);
                             
@@ -265,14 +203,15 @@
                                 },
                                 commit: function(widget) {
 
-                                    var inputCode = CKEDITOR.dialog.getCurrent().getValueOf('general', 'embedCode'),
-                                        resizetype = CKEDITOR.dialog.getCurrent().getContentElement('general', 'resizeType').
+                                    var dialog = CKEDITOR.dialog.getCurrent(),
+                                        inputCode = dialog.getValueOf('general', 'embedCode'),
+                                        resizetype = dialog.getContentElement('general', 'resizeType').
                                             getValue(),
                                         maxWidth = null,
                                         maxHeight = null,
                                         responsiveResize = false,
-                                        editorInstance = CKEDITOR.dialog.getCurrent().getParentEditor(),
-                                        closeDialog = CKEDITOR.dialog.getCurrent().getContentElement('general', 'autoCloseDialog').
+                                        editorInstance = dialog.getParentEditor(),
+                                        closeDialog = dialog.getContentElement('general', 'autoCloseDialog').
                                             getValue();
 
                                     if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
@@ -284,19 +223,19 @@
                                         responsiveResize = false;
                                     } else {
                                         if (resizetype == "responsive") {
-                                            maxWidth = this.getContentElement('general', 'maxWidth').
+                                            maxWidth = dialog.getContentElement('general', 'maxWidth').
                                                 getInputElement().
                                                 getValue();
-                                            maxHeight = this.getContentElement('general', 'maxHeight').
+                                            maxHeight = dialog.getContentElement('general', 'maxHeight').
                                                 getInputElement().
                                                 getValue();
 
                                             responsiveResize = true;
                                         } else if (resizetype == "custom") {
-                                            maxWidth = this.getContentElement('general', 'width').
+                                            maxWidth = dialog.getContentElement('general', 'width').
                                                 getInputElement().
                                                 getValue();
-                                            maxHeight = this.getContentElement('general', 'height').
+                                            maxHeight = dialog.getContentElement('general', 'height').
                                                 getInputElement().
                                                 getValue();
 
@@ -322,7 +261,8 @@
                                         // single url
                                         embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, widget);
                                     }
-                                    widget.setData('oembed', this.getValue());
+                                    
+                                    widget.setData('oembed', inputCode);
                                 }
                             }, {
                                 type: 'hbox',

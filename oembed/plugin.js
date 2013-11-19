@@ -61,13 +61,20 @@
                 template:
                     '<div class="' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") +  '">' +
                         '</div>',
-
-                upcast: function(element) {
+                upcast: function (element) {
                     return element.name == 'div' && element.hasClass(editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent");
-                },
+                }
+            });
+            
+            editor.ui.addButton('oembed', {
+                label: editor.lang.oembed.button,
+
+                command: 'oembed',
+
+                icon: this.path + "images/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "icon.png"
             });
 
-            var resizeTypeChanged = function() {
+            var resizeTypeChanged = function () {
                 var dialog = this.getDialog(),
                     resizetype = this.getValue(),
                     maxSizeBox = dialog.getContentElement('general', 'maxSizeBox').getElement(),
@@ -117,7 +124,6 @@
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
-                            
                             widget.element.appendHtml(e.code);
 
                             elementAdded = true;
@@ -126,9 +132,7 @@
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
-                            
                             widget.element.appendHtml(e.code[0].outerHTML);
-                            
                             elementAdded = true;
                         } else {
                             alert(editor.lang.oembed.noEmbedCode);

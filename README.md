@@ -172,7 +172,7 @@ This Plugin requires the following plugins to work: Widget, Dialog.
 
 ####Installation
 
- 1. Before you can use the plugin you also need to download & install the widget plugin, if you have it not installed.
+ 1. Before you can use the plugin you also need to download & install the widget plugin, if you have it not installed. http://ckeditor.com/addon/widget
  2. Extract the contents of the file into the "plugins" folder of CKEditor.
  3. In the CKEditor configuration file (config.js) add the following code:
 

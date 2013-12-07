@@ -56,7 +56,7 @@
             editor.widgets.add('oembed', {
                 mask: true,
                 dialog: 'oembed',
-                button: editor.lang.oembed.button,
+                //button: editor.lang.oembed.button,
                 allowedContent: 'div(!' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") + ');div iframe[*]',
                 template:
                     '<div class="' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") +  '">' +
@@ -68,9 +68,8 @@
             
             editor.ui.addButton('oembed', {
                 label: editor.lang.oembed.button,
-
                 command: 'oembed',
-
+                toolbar: 'insert,10',
                 icon: this.path + "icons/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "oembed.png"
             });
 

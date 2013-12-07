@@ -71,7 +71,7 @@
 
                 command: 'oembed',
 
-                icon: this.path + "images/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "icon.png"
+                icon: this.path + "icons/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "oembed.png"
             });
 
             var resizeTypeChanged = function () {

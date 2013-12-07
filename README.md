@@ -167,13 +167,17 @@ http://w8tcha.github.com/CKEditor-oEmbed-Plugin/
 
 Licensed under the terms of the MIT License.
 
+####Dependencies 
+This Plugin requires the following plugins to work: Widget, Dialog.
+
 ####Installation
 
- 1. Extract the contents of the file into the "plugins" folder of CKEditor.
- 2. In the CKEditor configuration file (config.js) add the following code:
+ 1. Before you can use the plugin you also need to download & install the widget plugin, if you have it not installed.
+ 2. Extract the contents of the file into the "plugins" folder of CKEditor.
+ 3. In the CKEditor configuration file (config.js) add the following code:
 
 ````
-config.extraPlugins = 'oembed';
+config.extraPlugins = 'oembed,widget';
 ````
 
 In CKEditor 4.1 or higher you need to disable ACF in the Config

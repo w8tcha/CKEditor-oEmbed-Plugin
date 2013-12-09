@@ -180,13 +180,6 @@ This Plugin requires the following plugins to work: Widget, Dialog.
 config.extraPlugins = 'oembed,widget';
 ````
 
-In CKEditor 4.1 or higher you need to disable ACF in the Config
-
-````
-config.allowedContent = true;
-
-````
-
 2a. Additionally you can also set the default values vor the Max. Width/Height Values
 
 ````

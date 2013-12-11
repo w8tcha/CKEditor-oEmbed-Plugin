@@ -11,7 +11,7 @@
         hidpi: true,
         requires: 'widget,dialog',
         lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru'],
-        version: 1.13,
+        version: 1.14,
         init: function (editor) {
             // Load jquery?
             loadjQueryLibaries();
@@ -115,6 +115,7 @@
             }
 
             function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, widget) {
+                jQuery.noConflict();
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         var elementAdded = false;

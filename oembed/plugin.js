@@ -10,7 +10,7 @@
         icons: 'oembed',
         hidpi: true,
         requires: 'widget,dialog',
-        lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru'],
+        lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru', 'tr'],
         version: 1.14,
         init: function (editor) {
             // Load jquery?

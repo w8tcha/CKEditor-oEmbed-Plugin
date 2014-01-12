@@ -208,7 +208,7 @@
                                 commit: function(widget) {
 
                                     var dialog = CKEDITOR.dialog.getCurrent(),
-                                        inputCode = dialog.getValueOf('general', 'embedCode'),
+                                        inputCode = dialog.getValueOf('general', 'embedCode').replace(/\s/g, ""),
                                         resizetype = dialog.getContentElement('general', 'resizeType').
                                             getValue(),
                                         maxWidth = null,
@@ -247,6 +247,7 @@
                                         }
                                     }
 
+                                    /*
                                     // support for multiple urls
                                     if (inputCode.indexOf(";") > 0) {
                                         var urls = inputCode.split(";");
@@ -255,6 +256,8 @@
 
                                             if (url.length > 1 && url.beginsWith('http')) {
                                                 embedCode(url, editorInstance, false, maxWidth, maxHeight, responsiveResize, widget);
+
+                                                widget.setData('oembed', url);
                                             }
                                             // close after last
                                             if (i == urls.length - 1) {
@@ -264,8 +267,12 @@
                                     } else {
                                         // single url
                                         embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, widget);
-                                    }
-                                    
+
+                                        widget.setData('oembed', inputCode);
+                                    }*/
+
+                                    embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, widget);
+
                                     widget.setData('oembed', inputCode);
                                 }
                             }, {

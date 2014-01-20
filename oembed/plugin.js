@@ -102,6 +102,7 @@
             function loadjQueryLibaries() {
                 if (typeof(jQuery) === 'undefined') {
                     CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
+                        jQuery.noConflict();
                         if (typeof(jQuery.fn.oembed) === 'undefined') {
                             CKEDITOR.scriptLoader.load(
                                 CKEDITOR.getUrl(CKEDITOR.plugins.getPath('oembed') + 'libs/jquery.oembed.min.js')
@@ -115,7 +116,6 @@
             }
 
             function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, widget) {
-                jQuery.noConflict();
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         var elementAdded = false;

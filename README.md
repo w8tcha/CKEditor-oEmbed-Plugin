@@ -176,26 +176,26 @@ This Plugin requires the following plugins to work: Widget, Dialog.
  2. Extract the contents of the file into the "plugins" folder of CKEditor.
  3. In the CKEditor configuration file (config.js) add the following code:
 
-````
+````js
 config.extraPlugins = 'oembed,widget';
 ````
 
 2a. Additionally you can also set the default values vor the Max. Width/Height Values
 
-````
+````js
 config.oembed_maxWidth = '560';
 config.oembed_maxHeight = '315';
 ````
 
 and also you can define an css class for the embeded content wrapper (div), by default there is no Class defined
 
-````
+````js
 config.oembed_WrapperClass = 'embededContent';
 ````
 
 
 3. and also include the plugin in the toolbar 
 
-````
+````js
 toolbar :[ ... ['oembed']...]
 ````

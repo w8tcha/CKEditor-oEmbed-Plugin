@@ -54,6 +54,7 @@
 
 
             editor.widgets.add('oembed', {
+                draggable: false,
                 mask: true,
                 dialog: 'oembed',
                 //button: editor.lang.oembed.button,
@@ -63,6 +64,17 @@
                         '</div>',
                 upcast: function (element) {
                     return element.name == 'div' && element.hasClass(editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent");
+                },
+                init: function () {
+                    var data = {
+                        oembed: this.element.data('oembed') || '',
+                        };
+
+                    this.setData(data);
+
+                    this.on('dialog', function (evt) {
+                        evt.data.widget = this;
+                    }, this);
                 }
             });
             
@@ -124,7 +136,9 @@
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
+
                             widget.element.appendHtml(e.code);
+                            widget.element.data('oembed', url);
 
                             elementAdded = true;
                         } else if (typeof e.code[0].outerHTML === 'string') {
@@ -132,7 +146,10 @@
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
+
                             widget.element.appendHtml(e.code[0].outerHTML);
+                            widget.element.data('oembed', url);
+
                             elementAdded = true;
                         } else {
                             alert(editor.lang.oembed.noEmbedCode);
@@ -202,7 +219,7 @@
                                 title: editor.lang.oembed.pasteUrl,
                                 setup: function(widget) {
                                     if (widget.data.oembed) {
-                                        this.setValue(widget.data.oembed);
+                                       this.setValue(widget.data.oembed);
                                     }
                                 },
                                 commit: function(widget) {

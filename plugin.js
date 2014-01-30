@@ -10,7 +10,7 @@
         icons: 'oembed',
         hidpi: true,
         requires: 'widget,dialog',
-        lang: ['de', 'en', 'fr', 'nl', 'pl', 'pt-br', 'ru', 'tr'],
+        lang: 'de,en,fr,nl,pl,pt-br,ru,tr', // %REMOVE_LINE_CORE%
         version: 1.14,
         init: function (editor) {
             // Load jquery?
@@ -67,7 +67,7 @@
                 },
                 init: function () {
                     var data = {
-                        oembed: this.element.data('oembed') || '',
+                        oembed: this.element.data('oembed') || ''
                         };
 
                     this.setData(data);

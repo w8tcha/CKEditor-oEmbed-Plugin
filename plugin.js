@@ -1,4 +1,4 @@
-﻿/**
+/**
 * oEmbed Plugin plugin
 * Licensed under the MIT license
 * jQuery Embed Plugin: http://code.google.com/p/jquery-oembed/ (MIT License)
@@ -54,7 +54,7 @@
 
 
             editor.widgets.add('oembed', {
-                draggable: false,
+                draggable: true,
                 mask: true,
                 dialog: 'oembed',
                 //button: editor.lang.oembed.button,
@@ -67,7 +67,10 @@
                 },
                 init: function () {
                     var data = {
-                        oembed: this.element.data('oembed') || ''
+                        oembed: this.element.data('oembed') || '',
+						resizeType : this.element.data('resizeType') || '',
+						maxWidth : this.element.data('maxWidth') || 560,
+						maxHeight : this.element.data('maxHeight') || 315
                         };
 
                     this.setData(data);
@@ -127,11 +130,18 @@
                 }
             }
 
-            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, widget) {
+            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, widget) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         var elementAdded = false;
-
+						
+						widget.element.data('resizeType', resizeType);
+						if(resizeType == "responsive" || resizeType == "custom")
+						{
+							widget.element.data('maxWidth', maxWidth);
+							widget.element.data('maxHeight', maxHeight);
+						}
+						
                         if (typeof e.code === 'string') {
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
@@ -182,10 +192,21 @@
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
                     minHeight: 155,
                     onShow: function() {
+						var data = {
+							oembed: this.widget.element.data('oembed') || '',
+							resizeType : this.widget.element.data('resizeType') || '',
+							maxWidth : this.widget.element.data('maxWidth') || 560,
+							maxHeight : this.widget.element.data('maxHeight') || 315
+							};
+
+						this.widget.setData(data);
+						
+						this.getContentElement('general', 'resizeType').setValue(data.resizeType);
+						
                         var resizetype = this.getContentElement('general', 'resizeType').getValue(),
                             maxSizeBox = this.getContentElement('general', 'maxSizeBox').getElement(),
                             sizeBox = this.getContentElement('general', 'sizeBox').getElement();
-
+							
                         if (resizetype == 'noresize') {
                             maxSizeBox.hide();
                             sizeBox.hide();
@@ -223,10 +244,9 @@
                                     }
                                 },
                                 commit: function(widget) {
-
                                     var dialog = CKEDITOR.dialog.getCurrent(),
                                         inputCode = dialog.getValueOf('general', 'embedCode').replace(/\s/g, ""),
-                                        resizetype = dialog.getContentElement('general', 'resizeType').
+                                        resizeType = dialog.getContentElement('general', 'resizeType').
                                             getValue(),
                                         maxWidth = null,
                                         maxHeight = null,
@@ -240,10 +260,10 @@
                                         return false;
                                     }
 
-                                    if (resizetype == "noresize") {
+                                    if (resizeType == "noresize") {
                                         responsiveResize = false;
                                     } else {
-                                        if (resizetype == "responsive") {
+                                        if (resizeType == "responsive") {
                                             maxWidth = dialog.getContentElement('general', 'maxWidth').
                                                 getInputElement().
                                                 getValue();
@@ -252,7 +272,7 @@
                                                 getValue();
 
                                             responsiveResize = true;
-                                        } else if (resizetype == "custom") {
+                                        } else if (resizeType == "custom") {
                                             maxWidth = dialog.getContentElement('general', 'width').
                                                 getInputElement().
                                                 getValue();
@@ -264,33 +284,12 @@
                                         }
                                     }
 
-                                    /*
-                                    // support for multiple urls
-                                    if (inputCode.indexOf(";") > 0) {
-                                        var urls = inputCode.split(";");
-                                        for (var i = 0; i < urls.length; i++) {
-                                            var url = urls[i];
-
-                                            if (url.length > 1 && url.beginsWith('http')) {
-                                                embedCode(url, editorInstance, false, maxWidth, maxHeight, responsiveResize, widget);
-
-                                                widget.setData('oembed', url);
-                                            }
-                                            // close after last
-                                            if (i == urls.length - 1) {
-                                                CKEDITOR.dialog.getCurrent().hide();
-                                            }
-                                        }
-                                    } else {
-                                        // single url
-                                        embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, widget);
-
-                                        widget.setData('oembed', inputCode);
-                                    }*/
-
-                                    embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, widget);
+                                    embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, widget);
 
                                     widget.setData('oembed', inputCode);
+                                    widget.setData('resizeType', resizeType);
+                                    widget.setData('maxWidth', maxWidth);
+                                    widget.setData('maxHeight', maxHeight);
                                 }
                             }, {
                                 type: 'hbox',
@@ -300,6 +299,11 @@
                                         type: 'select',
                                         label: editor.lang.oembed.resizeType,
                                         'default': 'noresize',
+										setup: function(widget) {
+											if (widget.data.resizeType) {
+											   this.setValue(widget.data.resizeType);
+											}
+										},
                                         items: [
                                             [editor.lang.oembed.noresize, 'noresize'],
                                             [editor.lang.oembed.responsive, 'responsive'],
@@ -317,14 +321,24 @@
                                                 id: 'maxWidth',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.maxWidth,
-                                                title: editor.lang.oembed.maxWidthTitle
+                                                title: editor.lang.oembed.maxWidthTitle,
+												setup: function(widget) {
+													if (widget.data.maxWidth) {
+														this.setValue(widget.data.maxWidth);
+													}
+												}
                                             }, {
                                                 type: 'text',
                                                 id: 'maxHeight',
                                                 width: '120px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.maxHeight,
-                                                title: editor.lang.oembed.maxHeightTitle
+                                                title: editor.lang.oembed.maxHeightTitle,
+												setup: function(widget) {
+													if (widget.data.maxHeight) {
+														this.setValue(widget.data.maxHeight);
+													}
+												}
                                             }]
                                     }, {
                                         type: 'hbox',
@@ -337,14 +351,24 @@
                                                 width: '100px',
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.width,
-                                                title: editor.lang.oembed.widthTitle
+                                                title: editor.lang.oembed.widthTitle,
+												setup: function(widget) {
+													if (widget.data.maxWidth) {
+													   this.setValue(widget.data.maxWidth);
+													}
+												}
                                             }, {
                                                 type: 'text',
                                                 id: 'height',
                                                 width: '120px',
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.height,
-                                                title: editor.lang.oembed.heightTitle
+                                                title: editor.lang.oembed.heightTitle,
+												setup: function(widget) {
+													if (widget.data.maxHeight) {
+													   this.setValue(widget.data.maxHeight);
+													}
+												}
                                             }]
                                     }]
                             }, {

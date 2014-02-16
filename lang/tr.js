@@ -14,6 +14,7 @@ CKEDITOR.plugins.setLang('oembed', 'tr', {
     maxWidthTitle: "Eklenecek içerik için max. genişlik",
     maxHeightTitle: "Eklenecek içerik için max. yükseklik",
     resizeType: "Boyutlandır (sadece videolarda geçerli):",
+    none:'None',
     noresize: "Boyutlandırma yapma (default kullan)",
     responsive: "Esnek (Responsive) boyutlandırma",
     custom: "Özel boyutlandırma",

@@ -1,5 +1,5 @@
 CKEDITOR.plugins.setLang('oembed', 'en', {
-    title: "Embed Media Content (Photo, Video, Audio, Rich)",
+	title: "Embed Media Content (Photo, Video, Audio, Rich)",
     button: "Embed Media Content from Various Sites",
     pasteUrl: "Paste an URL (Also shortened URLs are supported) from one of the Supported Sites (e.g. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.) here ...",
     invalidUrl: "Please provide an valid URL!",
@@ -13,6 +13,7 @@ CKEDITOR.plugins.setLang('oembed', 'en', {
     maxHeight: "Max. Height:",
     maxWidthTitle: "Maximum Width for the embeded Content",
     maxHeightTitle: "Maximum Height for the embeded Content",
+	none:'None',
     resizeType: "Resize Type (Only Video's):",
     noresize: "No Resize (use default)",
     responsive: "Responsive Resize",

@@ -14,6 +14,7 @@
     maxWidthTitle: "Maksymalna szerokość osadzanej zawartości",
     maxHeightTitle: "Maksymalna wysokość osadzanej zawartości",
     resizeType: "Typ zmiany rozmiaru (tylko nagrania wideo):",
+    none:'None',
     noresize: "Bez zmiany rozmiaru (domyślne)",
     responsive: "Responsywna zmiana rozmiaru",
     custom: "Narzucona zmiana rozmiaru",

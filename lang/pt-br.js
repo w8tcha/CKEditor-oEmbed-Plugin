@@ -14,6 +14,7 @@ CKEDITOR.plugins.setLang('oembed', 'pt-br', {
     maxWidthTitle: "Largura máxima do conteúdo embeded",
     maxHeightTitle: "Altura máxima do conteúdo embeded",
     resizeType: "Tipo de redimensionamento (Somente para video):",
+    none:'None',
     noresize: "Sem redimensionamento (default)",
     responsive: "Redimensionamento responsivo",
     custom: "Redimensionamento específico",

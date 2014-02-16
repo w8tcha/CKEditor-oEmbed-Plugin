@@ -1,4 +1,4 @@
-/**
+﻿/**
 * oEmbed Plugin plugin
 * Licensed under the MIT license
 * jQuery Embed Plugin: http://code.google.com/p/jquery-oembed/ (MIT License)
@@ -54,7 +54,7 @@
 
 
             editor.widgets.add('oembed', {
-                draggable: true,
+                draggable: false,
                 mask: true,
                 dialog: 'oembed',
                 //button: editor.lang.oembed.button,
@@ -68,7 +68,7 @@
                 init: function () {
                     var data = {
                         oembed: this.element.data('oembed') || '',
-						resizeType : this.element.data('resizeType') || '',
+                        resizeType: this.element.data('resizeType') || 'noresize',
 						maxWidth : this.element.data('maxWidth') || 560,
 						maxHeight : this.element.data('maxHeight') || 315
                         };
@@ -194,7 +194,7 @@
                     onShow: function() {
 						var data = {
 							oembed: this.widget.element.data('oembed') || '',
-							resizeType : this.widget.element.data('resizeType') || '',
+							resizeType: this.widget.element.data('resizeType') || 'noresize',
 							maxWidth : this.widget.element.data('maxWidth') || 560,
 							maxHeight : this.widget.element.data('maxHeight') || 315
 							};

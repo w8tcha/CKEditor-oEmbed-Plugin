@@ -57,8 +57,16 @@
                 draggable: false,
                 mask: true,
                 dialog: 'oembed',
-                //button: editor.lang.oembed.button,
-                allowedContent: 'div(!' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") + ');div iframe[*]',
+                allowedContent: {
+                    div: {
+                        styles: 'text-align,float',
+                        attributes: '*',
+                        classes: editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent"
+                    },
+                    'div iframe': {
+                        attributes: '*'
+                    },
+                },
                 template:
                     '<div class="' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") +  '">' +
                         '</div>',
@@ -70,7 +78,8 @@
                         oembed: this.element.data('oembed') || '',
                         resizeType: this.element.data('resizeType') || 'noresize',
 						maxWidth : this.element.data('maxWidth') || 560,
-						maxHeight : this.element.data('maxHeight') || 315
+						maxHeight: this.element.data('maxHeight') || 315,
+                        align: this.element.data('align') || 'none'
                         };
 
                     this.setData(data);
@@ -130,7 +139,7 @@
                 }
             }
 
-            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, widget) {
+            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, align, widget) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         var elementAdded = false;
@@ -141,8 +150,26 @@
 							widget.element.data('maxWidth', maxWidth);
 							widget.element.data('maxHeight', maxHeight);
 						}
-						
-                        if (typeof e.code === 'string') {
+
+						widget.element.data('align', align);
+
+                        // TODO handle align
+						if (align == 'center') {
+						    if (!widget.inline)
+						        widget.element.setStyle('text-align', 'center');
+
+						    widget.element.removeStyle('float');
+						} else {
+						    if (!widget.inline)
+						        widget.element.removeStyle('text-align');
+
+						    if (align == 'none')
+						        widget.element.removeStyle('float');
+						    else
+						        widget.element.setStyle('float', align);
+						}
+                        
+						if (typeof e.code === 'string') {
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
@@ -154,7 +181,7 @@
                         } else if (typeof e.code[0].outerHTML === 'string') {
 
                             if (widget.element.$.firstChild) {
-                                widget.element.$.removeChild(widget.element.$.firstChild);
+                               widget.element.$.removeChild(widget.element.$.firstChild);
                             }
 
                             widget.element.appendHtml(e.code[0].outerHTML);
@@ -192,16 +219,19 @@
                     minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 568 : 550,
                     minHeight: 155,
                     onShow: function() {
-						var data = {
-							oembed: this.widget.element.data('oembed') || '',
-							resizeType: this.widget.element.data('resizeType') || 'noresize',
-							maxWidth : this.widget.element.data('maxWidth') || 560,
-							maxHeight : this.widget.element.data('maxHeight') || 315
-							};
+                        var data = {
+                            oembed: this.widget.element.data('oembed') || '',
+                            resizeType: this.widget.element.data('resizeType') || 'noresize',
+                            maxWidth: this.widget.element.data('maxWidth') || 560,
+                            maxHeight: this.widget.element.data('maxHeight') || 315,
+                            align: this.widget.element.data('align') || 'none',
+                        };
 
 						this.widget.setData(data);
 						
 						this.getContentElement('general', 'resizeType').setValue(data.resizeType);
+
+						this.getContentElement('general', 'align').setValue(data.align);
 						
                         var resizetype = this.getContentElement('general', 'resizeType').getValue(),
                             maxSizeBox = this.getContentElement('general', 'maxSizeBox').getElement(),
@@ -248,6 +278,8 @@
                                         inputCode = dialog.getValueOf('general', 'embedCode').replace(/\s/g, ""),
                                         resizeType = dialog.getContentElement('general', 'resizeType').
                                             getValue(),
+                                        align = dialog.getContentElement('general', 'align').
+                                            getValue(),
                                         maxWidth = null,
                                         maxHeight = null,
                                         responsiveResize = false,
@@ -262,32 +294,33 @@
 
                                     if (resizeType == "noresize") {
                                         responsiveResize = false;
-                                    } else {
-                                        if (resizeType == "responsive") {
-                                            maxWidth = dialog.getContentElement('general', 'maxWidth').
-                                                getInputElement().
-                                                getValue();
-                                            maxHeight = dialog.getContentElement('general', 'maxHeight').
-                                                getInputElement().
-                                                getValue();
+                                        maxWidth = null;
+                                        maxHeight = null;
+                                    } else if (resizeType == "responsive") {
+                                        maxWidth = dialog.getContentElement('general', 'maxWidth').
+                                            getInputElement().
+                                            getValue();
+                                        maxHeight = dialog.getContentElement('general', 'maxHeight').
+                                            getInputElement().
+                                            getValue();
 
-                                            responsiveResize = true;
-                                        } else if (resizeType == "custom") {
-                                            maxWidth = dialog.getContentElement('general', 'width').
-                                                getInputElement().
-                                                getValue();
-                                            maxHeight = dialog.getContentElement('general', 'height').
-                                                getInputElement().
-                                                getValue();
+                                        responsiveResize = true;
+                                    } else if (resizeType == "custom") {
+                                        maxWidth = dialog.getContentElement('general', 'width').
+                                            getInputElement().
+                                            getValue();
+                                        maxHeight = dialog.getContentElement('general', 'height').
+                                            getInputElement().
+                                            getValue();
 
-                                            responsiveResize = false;
-                                        }
+                                        responsiveResize = false;
                                     }
 
-                                    embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, widget);
+                                    embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, align, widget);
 
                                     widget.setData('oembed', inputCode);
                                     widget.setData('resizeType', resizeType);
+                                    widget.setData('align', align);
                                     widget.setData('maxWidth', maxWidth);
                                     widget.setData('maxHeight', maxHeight);
                                 }
@@ -371,6 +404,24 @@
 												}
                                             }]
                                     }]
+                            }, {
+                                type: 'hbox',
+                                id: 'alignment',
+                                children: [
+                                    {
+                                        id: 'align',
+                                        type: 'radio',
+                                        items: [
+                                            [editor.lang.oembed.none, 'none'],
+                                            [editor.lang.common.alignLeft, 'left'],
+                                            [editor.lang.common.alignCenter, 'center'],
+                                            [editor.lang.common.alignRight, 'right']],
+                                        label: editor.lang.common.align,
+                                        setup: function( widget ) {
+                                            this.setValue(widget.data.align);
+                                        }
+                                    }
+                                ]
                             }, {
                                 type: 'checkbox',
                                 id: 'autoCloseDialog',

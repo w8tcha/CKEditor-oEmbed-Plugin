@@ -326,6 +326,19 @@
                     code
                         .attr('scrolling', embedProvider.embedtag.scrolling || "no")
                         .attr('frameborder', embedProvider.embedtag.frameborder || "0");
+                    /*
+                    // make video responsive
+                    var styles = {
+                        position: "absolute",
+                        top: "0",
+                        left: "0",
+                        width: "100%",
+                        height: "100%"
+                    };
+                    code.css( styles );*/
+
+                    //code.css('max-width', '100%');
+
                 }
                 var oembedData = { code: code };
                 success(oembedData, externalUrl, container);
@@ -517,12 +530,11 @@
                     apiendpoint: this.apiendpoint,
                     url: function(externalurl) { return this.apiendpoint + '?format=json&url=' + externalurl; },
                     datareturn: function(results) {
-
-                        if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url)) {
+						
+						if (results.json.type != 'video' && (results.json.url || results.json.thumbnail_url) && !results.json.html.indexOf("iframe") ) {
                             return '<img src="' + (results.json.url || results.json.thumbnail_url) + '"  />';
                         } else if (results.json.html.indexOf("iframe")) {
-
-                            // Quick fix to handle attribute less html5 properties in ckeditor
+							// Quick fix to handle attribute less html5 properties in ckeditor
                             if (results.json.html.indexOf("allowfullscreen>")) {
                                 results.json.html = results.json.html.replace('allowfullscreen>', 'allowfullscreen="false">');
                             }
@@ -566,6 +578,8 @@
                                 } else {
                                     height = settings.maxHeight;
                                     width = settings.maxWidth;
+
+                                    
                                 }
 
                             }

@@ -139,7 +139,7 @@
                 }
             }
 
-            function embedCode(url, instance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, align, widget) {
+            function embedCode(url, instance, maxWidth, maxHeight, responsiveResize, resizeType, align, widget) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         var elementAdded = false;
@@ -190,12 +190,6 @@
                             elementAdded = true;
                         } else {
                             alert(editor.lang.oembed.noEmbedCode);
-                        }
-                        
-                        if (elementAdded) {
-                            if (closeDialog) {
-                                CKEDITOR.dialog.getCurrent().hide();
-                            }
                         }
                     },
                     onError: function(externalUrl) {
@@ -283,9 +277,7 @@
                                         maxWidth = null,
                                         maxHeight = null,
                                         responsiveResize = false,
-                                        editorInstance = dialog.getParentEditor(),
-                                        closeDialog = dialog.getContentElement('general', 'autoCloseDialog').
-                                            getValue();
+                                        editorInstance = dialog.getParentEditor();
 
                                     if (inputCode.length < 1 || inputCode.indexOf('http') < 0) {
                                         alert(editor.lang.oembed.invalidUrl);
@@ -316,7 +308,7 @@
                                         responsiveResize = false;
                                     }
 
-                                    embedCode(inputCode, editorInstance, closeDialog, maxWidth, maxHeight, responsiveResize, resizeType, align, widget);
+                                    embedCode(inputCode, editorInstance, maxWidth, maxHeight, responsiveResize, resizeType, align, widget);
 
                                     widget.setData('oembed', inputCode);
                                     widget.setData('resizeType', resizeType);
@@ -422,12 +414,6 @@
                                         }
                                     }
                                 ]
-                            }, {
-                                type: 'checkbox',
-                                id: 'autoCloseDialog',
-                                'default': 'checked',
-                                label: editor.lang.oembed.autoClose,
-                                title: editor.lang.oembed.autoClose
                             }]
                     }]
                 };

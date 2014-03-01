@@ -11,7 +11,7 @@
         hidpi: true,
         requires: 'widget,dialog',
         lang: 'de,en,fr,nl,pl,pt-br,ru,tr', // %REMOVE_LINE_CORE%
-        version: 1.14,
+        version: 1.15,
         init: function (editor) {
             // Load jquery?
             loadjQueryLibaries();

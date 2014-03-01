@@ -14,10 +14,10 @@ CKEDITOR.plugins.setLang('oembed', 'pt-br', {
     maxWidthTitle: "Largura máxima do conteúdo embeded",
     maxHeightTitle: "Altura máxima do conteúdo embeded",
     resizeType: "Tipo de redimensionamento (Somente para video):",
+    none:'None',
     noresize: "Sem redimensionamento (default)",
     responsive: "Redimensionamento responsivo",
     custom: "Redimensionamento específico",
-    autoClose: "Fechas automaticamente a caixa de diálogo o código ser embeded",
     noVimeo: "O dono desse vídeo tem restrições de domínio a você não poderá utilizá-lo em seu site.",
     Error: "Esse conteúdo de mídia não foi encontrado, por favor tente uma URL diferente."
 });

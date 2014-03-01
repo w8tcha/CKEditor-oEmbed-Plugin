@@ -18,7 +18,6 @@ CKEDITOR.plugins.setLang('oembed', 'nl', {
 	noresize: "Geen formaat aanpassing (gebruik standaard)",
 	responsive: "Responsieve formaat aanpassing",
 	custom: "Specifieke formaat aanpassing",
-	autoClose: "Automatisch dit venster sluiten wanneer het invoegen voltooid is",
 	noVimeo: "De eigenaar van deze video heeft restricties ingesteld waardoor je deze video niet kunt invoegen op je eigen website.",
 	Error: "Media inhoud kon niet worden opgehaald, gelieve een andere URL te proberen."
 });

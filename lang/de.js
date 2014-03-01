@@ -18,7 +18,6 @@ CKEDITOR.plugins.setLang('oembed', 'de', {
     noresize: "Keine Veränderung (Standardgröße)",
 	responsive: "Responsive",
 	custom: "Eigene Größe",
-	autoClose: "Dialog nach einbettung automatisch schließen",
 	noVimeo: "Der Eigentümber dieses Videos hat Domain einschränkungen für dieses Video gesetzt das Video kann nicht in die Webseite eingebunden werden.",
 	Error: "Inhalt konnte nicht gefunden werden, bitte Versuchen sie eine Andere URL."
 });

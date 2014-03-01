@@ -1,6 +1,6 @@
 CKEDITOR.plugins.setLang('oembed', 'en', {
-	title: "Embed Media Properties",
-    button: "Embed Media",
+	title: "Embed Media Content (Photo, Video, Audio or Rich Content)",
+    button: "Embed Media from External Sites",
     pasteUrl: "Paste a URL (shorted URLs are also supported) from one of the supported sites (e.g. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.).",
     invalidUrl: "Please provide a valid URL.",
     noEmbedCode: "No embed code found, or site is not supported.",
@@ -18,7 +18,6 @@ CKEDITOR.plugins.setLang('oembed', 'en', {
     noresize: "No Resize (use default)",
     responsive: "Responsive Resize",
     custom: "Specific Resize",
-    autoClose: "Automatically close dialog after code is embedded",
     noVimeo: "The owner of this video has set domain restrictions and you will not be able to embed it on your website.",
     Error: "Media Content could not been retrieved, please try a different URL."
 });

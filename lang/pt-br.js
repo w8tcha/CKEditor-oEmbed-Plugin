@@ -18,7 +18,6 @@ CKEDITOR.plugins.setLang('oembed', 'pt-br', {
     noresize: "Sem redimensionamento (default)",
     responsive: "Redimensionamento responsivo",
     custom: "Redimensionamento específico",
-    autoClose: "Fechas automaticamente a caixa de diálogo o código ser embeded",
     noVimeo: "O dono desse vídeo tem restrições de domínio a você não poderá utilizá-lo em seu site.",
     Error: "Esse conteúdo de mídia não foi encontrado, por favor tente uma URL diferente."
 });

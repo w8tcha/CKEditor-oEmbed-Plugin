@@ -18,7 +18,6 @@ CKEDITOR.plugins.setLang('oembed', 'tr', {
     noresize: "Boyutlandırma yapma (default kullan)",
     responsive: "Esnek (Responsive) boyutlandırma",
     custom: "Özel boyutlandırma",
-    autoClose: "Kod eklendikten sonra pencereyi kapat",
     noVimeo: "Bu videonun sahibi alan adı kısıtlaması ayarlamış, web sitenizde bu video çalışmayacaktır.",
     Error: "Medya içeriği alınamadı, farklı bir URL deneyin."
 });

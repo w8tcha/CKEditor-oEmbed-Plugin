@@ -377,6 +377,10 @@
                         case "photo":
                             oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
                             break;
+                            case "link":
+                                oembedData.code = oembedData.provider_name == "Flickr" ? $.fn.oembed.getPhotoCode(externalUrl, oembedData) :
+                                    $.fn.oembed.getGenericCode(externalUrl, oembedData);
+                                break;
                         case "video":
                         case "rich":
                             oembedData.code = $.fn.oembed.getRichCode(externalUrl, oembedData);
@@ -471,15 +475,20 @@
         var code, alt = oembedData.title ? oembedData.title : '';
         alt += oembedData.author_name ? ' - ' + oembedData.author_name : '';
         alt += oembedData.provider_name ? ' - ' + oembedData.provider_name : '';
+
         if (oembedData.url) {
             code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + oembedData.url + '" alt="' + alt + '"/></a></div>';
         } else if (oembedData.thumbnail_url) {
             var newURL = oembedData.thumbnail_url.replace('_s', '_b');
             code = '<div><a href="' + url + '" target=\'_blank\'><img src="' + newURL + '" alt="' + alt + '"/></a></div>';
         } else {
-            code = '<div>Error loading this picture</div>';
+            if (oembedData.provider_name == "Flickr") {
+                code = '<p><a href="' + url + '" target=\'_blank\'>' + url + '</a></p>';
+            } else {
+                code = '<div>Error loading this picture</div>';
+            }
         }
-        if (oembedData.html) code += "<div>" + oembedData.html + "</div>";
+
         return code;
     };
 
@@ -718,7 +727,9 @@
         new $.fn.oembed.OEmbedProvider("shoudio", "rich", ["shoudio.com/.+", "shoud.io/.+"], "http://shoudio.com/api/oembed"),
         new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"], checkProtocol() + 'www.mixcloud.com/oembed/', { useYQL: 'json' }),
         new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+", "rdio.com"], checkProtocol() + "www.rdio.com/api/oembed/"),
+
         new $.fn.oembed.OEmbedProvider("Soundcloud", "rich", ["soundcloud.com/.+", "snd.sc/.+"], checkProtocol() + "soundcloud.com/oembed", { format: 'js' }),
+
         new $.fn.oembed.OEmbedProvider("bandcamp", "rich", ["bandcamp\\.com/album/.+"], null,
             {
                 yql: {

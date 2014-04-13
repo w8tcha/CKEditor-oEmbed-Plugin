@@ -125,7 +125,7 @@
 
             function loadjQueryLibaries() {
                 if (typeof(jQuery) === 'undefined') {
-                    CKEDITOR.scriptLoader.load('//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
+                    CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
                         jQuery.noConflict();
                         if (typeof(jQuery.fn.oembed) === 'undefined') {
                             CKEDITOR.scriptLoader.load(

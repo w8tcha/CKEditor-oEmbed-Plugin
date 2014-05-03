@@ -11,7 +11,7 @@
         hidpi: true,
         requires: 'widget,dialog',
         lang: 'de,en,fr,nl,pl,pt-br,ru,tr', // %REMOVE_LINE_CORE%
-        version: 1.15,
+        version: 1.16,
         init: function (editor) {
             // Load jquery?
             loadjQueryLibaries();
@@ -125,7 +125,7 @@
 
             function loadjQueryLibaries() {
                 if (typeof(jQuery) === 'undefined') {
-                    CKEDITOR.scriptLoader.load('//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
+                    CKEDITOR.scriptLoader.load('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
                         jQuery.noConflict();
                         if (typeof(jQuery.fn.oembed) === 'undefined') {
                             CKEDITOR.scriptLoader.load(

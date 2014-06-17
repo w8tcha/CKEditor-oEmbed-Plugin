@@ -216,8 +216,8 @@
                         var data = {
                             oembed: this.widget.element.data('oembed') || '',
                             resizeType: this.widget.element.data('resizeType') || 'noresize',
-                            maxWidth: this.widget.element.data('maxWidth') || 560,
-                            maxHeight: this.widget.element.data('maxHeight') || 315,
+                            maxWidth: this.widget.element.data('maxWidth'),
+                            maxHeight: this.widget.element.data('maxHeight'),
                             align: this.widget.element.data('align') || 'none',
                         };
 

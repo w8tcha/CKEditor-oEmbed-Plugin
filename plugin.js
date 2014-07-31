@@ -65,7 +65,7 @@
                     },
                     'div iframe': {
                         attributes: '*'
-                    },
+                    }
                 },
                 template:
                     '<div class="' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") +  '">' +

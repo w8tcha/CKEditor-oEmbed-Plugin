@@ -65,7 +65,7 @@
                     },
                     'div iframe': {
                         attributes: '*'
-                    },
+                    }
                 },
                 template:
                     '<div class="' + (editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent") +  '">' +
@@ -218,7 +218,7 @@
                             resizeType: this.widget.element.data('resizeType') || 'noresize',
                             maxWidth: this.widget.element.data('maxWidth'),
                             maxHeight: this.widget.element.data('maxHeight'),
-                            align: this.widget.element.data('align') || 'none',
+                            align: this.widget.element.data('align') || 'none'
                         };
 
 						this.widget.setData(data);

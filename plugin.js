@@ -52,7 +52,6 @@
                 }
             });
 
-
             editor.widgets.add('oembed', {
                 draggable: false,
                 mask: true,
@@ -63,7 +62,13 @@
                         attributes: '*',
                         classes: editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent"
                     },
-                    'div iframe': {
+                    'div(embeddedContent) iframe': {
+                        attributes: '*'
+                    },
+                    'div(embeddedContent) blockquote': {
+                        attributes: '*'
+                    },
+                    'div(embeddedContent) script': {
                         attributes: '*'
                     }
                 },

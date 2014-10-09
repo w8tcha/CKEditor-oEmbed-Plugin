@@ -82,8 +82,8 @@
                     var data = {
                         oembed: this.element.data('oembed') || '',
                         resizeType: this.element.data('resizeType') || 'noresize',
-						maxWidth : this.element.data('maxWidth') || 560,
-						maxHeight: this.element.data('maxHeight') || 315,
+                        maxWidth : this.element.data('maxWidth') || 560,
+                        maxHeight: this.element.data('maxHeight') || 315,
                         align: this.element.data('align') || 'none'
                         };
 
@@ -148,33 +148,33 @@
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
                         var elementAdded = false;
-						
-						widget.element.data('resizeType', resizeType);
-						if(resizeType == "responsive" || resizeType == "custom")
-						{
-							widget.element.data('maxWidth', maxWidth);
-							widget.element.data('maxHeight', maxHeight);
-						}
+                        
+                        widget.element.data('resizeType', resizeType);
+                        if(resizeType == "responsive" || resizeType == "custom")
+                        {
+                            widget.element.data('maxWidth', maxWidth);
+                            widget.element.data('maxHeight', maxHeight);
+                        }
 
-						widget.element.data('align', align);
+                        widget.element.data('align', align);
 
                         // TODO handle align
-						if (align == 'center') {
-						    if (!widget.inline)
-						        widget.element.setStyle('text-align', 'center');
+                        if (align == 'center') {
+                            if (!widget.inline)
+                                widget.element.setStyle('text-align', 'center');
 
-						    widget.element.removeStyle('float');
-						} else {
-						    if (!widget.inline)
-						        widget.element.removeStyle('text-align');
+                            widget.element.removeStyle('float');
+                        } else {
+                            if (!widget.inline)
+                                widget.element.removeStyle('text-align');
 
-						    if (align == 'none')
-						        widget.element.removeStyle('float');
-						    else
-						        widget.element.setStyle('float', align);
-						}
+                            if (align == 'none')
+                                widget.element.removeStyle('float');
+                            else
+                                widget.element.setStyle('float', align);
+                        }
                         
-						if (typeof e.code === 'string') {
+                        if (typeof e.code === 'string') {
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
@@ -226,16 +226,16 @@
                             align: this.widget.element.data('align') || 'none'
                         };
 
-						this.widget.setData(data);
-						
-						this.getContentElement('general', 'resizeType').setValue(data.resizeType);
+                        this.widget.setData(data);
+                        
+                        this.getContentElement('general', 'resizeType').setValue(data.resizeType);
 
-						this.getContentElement('general', 'align').setValue(data.align);
-						
+                        this.getContentElement('general', 'align').setValue(data.align);
+                        
                         var resizetype = this.getContentElement('general', 'resizeType').getValue(),
                             maxSizeBox = this.getContentElement('general', 'maxSizeBox').getElement(),
                             sizeBox = this.getContentElement('general', 'sizeBox').getElement();
-							
+                            
                         if (resizetype == 'noresize') {
                             maxSizeBox.hide();
                             sizeBox.hide();
@@ -329,11 +329,11 @@
                                         type: 'select',
                                         label: editor.lang.oembed.resizeType,
                                         'default': 'noresize',
-										setup: function(widget) {
-											if (widget.data.resizeType) {
-											   this.setValue(widget.data.resizeType);
-											}
-										},
+                                        setup: function(widget) {
+                                            if (widget.data.resizeType) {
+                                               this.setValue(widget.data.resizeType);
+                                            }
+                                        },
                                         items: [
                                             [editor.lang.oembed.noresize, 'noresize'],
                                             [editor.lang.oembed.responsive, 'responsive'],
@@ -352,11 +352,11 @@
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.maxWidth,
                                                 title: editor.lang.oembed.maxWidthTitle,
-												setup: function(widget) {
-													if (widget.data.maxWidth) {
-														this.setValue(widget.data.maxWidth);
-													}
-												}
+                                                setup: function(widget) {
+                                                    if (widget.data.maxWidth) {
+                                                        this.setValue(widget.data.maxWidth);
+                                                    }
+                                                }
                                             }, {
                                                 type: 'text',
                                                 id: 'maxHeight',
@@ -364,11 +364,11 @@
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.maxHeight,
                                                 title: editor.lang.oembed.maxHeightTitle,
-												setup: function(widget) {
-													if (widget.data.maxHeight) {
-														this.setValue(widget.data.maxHeight);
-													}
-												}
+                                                setup: function(widget) {
+                                                    if (widget.data.maxHeight) {
+                                                        this.setValue(widget.data.maxHeight);
+                                                    }
+                                                }
                                             }]
                                     }, {
                                         type: 'hbox',
@@ -382,11 +382,11 @@
                                                 'default': editor.config.oembed_maxWidth != null ? editor.config.oembed_maxWidth : '560',
                                                 label: editor.lang.oembed.width,
                                                 title: editor.lang.oembed.widthTitle,
-												setup: function(widget) {
-													if (widget.data.maxWidth) {
-													   this.setValue(widget.data.maxWidth);
-													}
-												}
+                                                setup: function(widget) {
+                                                    if (widget.data.maxWidth) {
+                                                       this.setValue(widget.data.maxWidth);
+                                                    }
+                                                }
                                             }, {
                                                 type: 'text',
                                                 id: 'height',
@@ -394,11 +394,11 @@
                                                 'default': editor.config.oembed_maxHeight != null ? editor.config.oembed_maxHeight : '315',
                                                 label: editor.lang.oembed.height,
                                                 title: editor.lang.oembed.heightTitle,
-												setup: function(widget) {
-													if (widget.data.maxHeight) {
-													   this.setValue(widget.data.maxHeight);
-													}
-												}
+                                                setup: function(widget) {
+                                                    if (widget.data.maxHeight) {
+                                                       this.setValue(widget.data.maxHeight);
+                                                    }
+                                                }
                                             }]
                                     }]
                             }, {

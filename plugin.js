@@ -62,13 +62,13 @@
                         attributes: '*',
                         classes: editor.config.oembed_WrapperClass != null ? editor.config.oembed_WrapperClass : "embeddedContent"
                     },
-                    'div(embeddedContent) iframe': {
+                    'div(embeddedContent,oembed-provider-*) iframe': {
                         attributes: '*'
                     },
-                    'div(embeddedContent) blockquote': {
+                    'div(embeddedContent,oembed-provider-*) blockquote': {
                         attributes: '*'
                     },
-                    'div(embeddedContent) script': {
+                    'div(embeddedContent,oembed-provider-*) script': {
                         attributes: '*'
                     }
                 },
@@ -84,7 +84,8 @@
                         resizeType: this.element.data('resizeType') || 'noresize',
                         maxWidth : this.element.data('maxWidth') || 560,
                         maxHeight: this.element.data('maxHeight') || 315,
-                        align: this.element.data('align') || 'none'
+                        align: this.element.data('align') || 'none',
+                        oembed_provider: this.element.data('oembed_provider') || ''
                         };
 
                     this.setData(data);
@@ -147,7 +148,9 @@
             function embedCode(url, instance, maxWidth, maxHeight, responsiveResize, resizeType, align, widget) {
                 jQuery('body').oembed(url, {
                     onEmbed: function(e) {
-                        var elementAdded = false;
+                        var elementAdded = false,
+                            provider = jQuery.fn.oembed.getOEmbedProvider(url)
+                            ;
                         
                         widget.element.data('resizeType', resizeType);
                         if(resizeType == "responsive" || resizeType == "custom")
@@ -181,6 +184,8 @@
 
                             widget.element.appendHtml(e.code);
                             widget.element.data('oembed', url);
+                            widget.element.data('oembed_provider', provider.name);
+                            widget.element.addClass('oembed-provider-' + provider.name);
 
                             elementAdded = true;
                         } else if (typeof e.code[0].outerHTML === 'string') {
@@ -191,6 +196,8 @@
 
                             widget.element.appendHtml(e.code[0].outerHTML);
                             widget.element.data('oembed', url);
+                            widget.element.data('oembed_provider', provider.name);
+                            widget.element.addClass('oembed-provider-' + provider.name);
 
                             elementAdded = true;
                         } else {

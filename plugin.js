@@ -85,6 +85,7 @@
 						maxWidth : this.element.data('maxWidth') || 560,
 						maxHeight: this.element.data('maxHeight') || 315,
                         align: this.element.data('align') || 'none'
+						oembed_provider: this.element.data('oembed_provider') || '',
                         };
 
                     this.setData(data);
@@ -174,23 +175,27 @@
 						        widget.element.setStyle('float', align);
 						}
                         
-						if (typeof e.code === 'string') {
+                        if (typeof e.code === 'string') {
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
                             }
 
                             widget.element.appendHtml(e.code);
                             widget.element.data('oembed', url);
+                            widget.element.data('oembed_provider', provider.name);
+                            widget.element.addClass('oembed-provider-' + provider.name);
 
                             elementAdded = true;
                         } else if (typeof e.code[0].outerHTML === 'string') {
 
                             if (widget.element.$.firstChild) {
-                               widget.element.$.removeChild(widget.element.$.firstChild);
+                                widget.element.$.removeChild(widget.element.$.firstChild);
                             }
 
                             widget.element.appendHtml(e.code[0].outerHTML);
                             widget.element.data('oembed', url);
+                            widget.element.data('oembed_provider', provider.name);
+                            widget.element.addClass('oembed-provider-' + provider.name);
 
                             elementAdded = true;
                         } else {
@@ -235,7 +240,7 @@
                         var resizetype = this.getContentElement('general', 'resizeType').getValue(),
                             maxSizeBox = this.getContentElement('general', 'maxSizeBox').getElement(),
                             sizeBox = this.getContentElement('general', 'sizeBox').getElement();
-							
+
                         if (resizetype == 'noresize') {
                             maxSizeBox.hide();
                             sizeBox.hide();
@@ -294,28 +299,28 @@
                                         maxWidth = null;
                                         maxHeight = null;
                                     } else if (resizeType == "responsive") {
-                                        maxWidth = dialog.getContentElement('general', 'maxWidth').
-                                            getInputElement().
-                                            getValue();
-                                        maxHeight = dialog.getContentElement('general', 'maxHeight').
-                                            getInputElement().
-                                            getValue();
+                                            maxWidth = dialog.getContentElement('general', 'maxWidth').
+                                                getInputElement().
+                                                getValue();
+                                            maxHeight = dialog.getContentElement('general', 'maxHeight').
+                                                getInputElement().
+                                                getValue();
 
-                                        responsiveResize = true;
+                                            responsiveResize = true;
                                     } else if (resizeType == "custom") {
-                                        maxWidth = dialog.getContentElement('general', 'width').
-                                            getInputElement().
-                                            getValue();
-                                        maxHeight = dialog.getContentElement('general', 'height').
-                                            getInputElement().
-                                            getValue();
+                                            maxWidth = dialog.getContentElement('general', 'width').
+                                                getInputElement().
+                                                getValue();
+                                            maxHeight = dialog.getContentElement('general', 'height').
+                                                getInputElement().
+                                                getValue();
 
-                                        responsiveResize = false;
+                                            responsiveResize = false;
                                     }
 
                                     embedCode(inputCode, editorInstance, maxWidth, maxHeight, responsiveResize, resizeType, align, widget);
 
-                                    widget.setData('oembed', inputCode);
+                                        widget.setData('oembed', inputCode);
                                     widget.setData('resizeType', resizeType);
                                     widget.setData('align', align);
                                     widget.setData('maxWidth', maxWidth);

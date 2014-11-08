@@ -23,7 +23,7 @@
                         alert(editor.lang.oembed.invalidUrl);
                         return false;
                     }
-                    
+
                     function embed() {
                         if (maxWidth == null || maxWidth == 'undefined') {
                             maxWidth = null;
@@ -89,13 +89,14 @@
                         };
 
                     this.setData(data);
+                    this.element.addClass('oembed-provider-' + data.oembed_provider);
 
                     this.on('dialog', function (evt) {
                         evt.data.widget = this;
                     }, this);
                 }
             });
-            
+
             editor.ui.addButton('oembed', {
                 label: editor.lang.oembed.button,
                 command: 'oembed',
@@ -151,7 +152,7 @@
                         var elementAdded = false,
                             provider = jQuery.fn.oembed.getOEmbedProvider(url)
                             ;
-                        
+
                         widget.element.data('resizeType', resizeType);
                         if(resizeType == "responsive" || resizeType == "custom")
                         {
@@ -176,7 +177,7 @@
                             else
                                 widget.element.setStyle('float', align);
                         }
-                        
+
                         if (typeof e.code === 'string') {
                             if (widget.element.$.firstChild) {
                                 widget.element.$.removeChild(widget.element.$.firstChild);
@@ -234,15 +235,15 @@
                         };
 
                         this.widget.setData(data);
-                        
+
                         this.getContentElement('general', 'resizeType').setValue(data.resizeType);
 
                         this.getContentElement('general', 'align').setValue(data.align);
-                        
+
                         var resizetype = this.getContentElement('general', 'resizeType').getValue(),
                             maxSizeBox = this.getContentElement('general', 'maxSizeBox').getElement(),
                             sizeBox = this.getContentElement('general', 'sizeBox').getElement();
-                            
+
                         if (resizetype == 'noresize') {
                             maxSizeBox.hide();
                             sizeBox.hide();

@@ -100,8 +100,7 @@
                 editor.ui.addButton('oembed', {
                     label: editor.lang.oembed.button,
                     command: 'oembed',
-                    toolbar: 'insert,10',
-                    icon: this.path + "icons/" + (CKEDITOR.env.hidpi ? "hidpi/" : "") + "oembed.png"
+                    toolbar: 'insert,10'
                 });
 
                 var resizeTypeChanged = function() {

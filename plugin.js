@@ -10,7 +10,7 @@
             icons: 'oembed',
             hidpi: true,
             requires: 'widget,dialog',
-            lang: 'de,en,fr,nl,pl,pt-br,ru,tr,cs', // %REMOVE_LINE_CORE%
+            lang: 'cs,de,en,fr,nl,pl,pt-br,ru,tr', // %REMOVE_LINE_CORE%
             version: 1.17,
             init: function(editor) {
                 // Load jquery?

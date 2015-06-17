@@ -108,6 +108,7 @@ http://w8tcha.github.com/CKEditor-oEmbed-Plugin/
 * Slideshare - oEmbed
 * ebay - Embedded
 * scribd - Embedded
+* DocumentCloud - oEmbed
 * screenr - Embedded
 * tumblr- JSONP lookup
 * imdb - JSONP lookup via imdbapi.com

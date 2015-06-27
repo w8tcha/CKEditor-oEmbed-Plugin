@@ -694,7 +694,7 @@
         new $.fn.oembed.OEmbedProvider("snotr", "video", ["snotr\\.com/video/.+"], "http://www.snotr.com/embed/$1",
             { templateRegex: /.*\/(\d+).*/, embedtag: { tag: 'iframe', width: 400, height: 330, nocache: 1 } }),
         new $.fn.oembed.OEmbedProvider("youku", "video", ["v.youku.com/v_show/id_.+"], "http://player.youku.com/player.php/sid/$1/v.swf",
-            { templateRegex: /.*id_(.+)\.html.*/, embedtag: { width: 480, height: 400, nocache: 1 } }),
+            { templateRegex: /.*id_(.+)\.html.*/, embedtag: { tag: 'iframe', width: 480, height: 400, nocache: 1 } }),
         new $.fn.oembed.OEmbedProvider("tudou", "video", ["tudou.com/programs/view/.+\/"], "http://www.tudou.com/v/$1/v.swf",
             { templateRegex: /.*view\/(.+)\//, embedtag: { width: 480, height: 400, nocache: 1 } }),
         new $.fn.oembed.OEmbedProvider("embedr", "video", ["embedr\\.com/playlist/.+"], "http://embedr.com/swf/slider/$1/425/520/default/false/std?",

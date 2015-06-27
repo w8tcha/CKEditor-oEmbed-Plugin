@@ -70,6 +70,9 @@
                         },
                         'div(embeddedContent,oembed-provider-*) script': {
                             attributes: '*'
+                        },
+                        'div(embeddedContent,oembed-provider-*) embed': {
+                            attributes: '*'
                         }
                     },
                     template:

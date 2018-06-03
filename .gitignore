@@ -1,0 +1,3 @@
+# Ignore NPM modules
+/node_modules/**
+*.bat

@@ -4,7 +4,8 @@ CKEDITOR.plugins.setLang('oembed', 'en', {
     pasteUrl: "Paste a URL (shorted URLs are also supported) from one of the supported sites (e.g. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.).",
     invalidUrl: "Please provide a valid URL.",
     noEmbedCode: "No embed code found, or site is not supported.",
-    url: "URL:",
+    embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",
+    url: "URL <span class='oembed-required'>[Required]</span>:",
     width: "Width:",
     height: "Height:",
     widthTitle: "Width for the embeded content",
@@ -19,5 +20,6 @@ CKEDITOR.plugins.setLang('oembed', 'en', {
     responsive: "Responsive Resize",
     custom: "Specific Resize",
     noVimeo: "The owner of this video has set domain restrictions and you will not be able to embed it on your website.",
-    Error: "Media Content could not been retrieved, please try a different URL."
+    Error: "Media Content could not been retrieved, please try a different URL.",
+    titleError: "Media Title is required to meet accessibility standards."
 });

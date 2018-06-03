@@ -1,0 +1,4 @@
+# Ignore NPM modules
+/etc/**
+/node_modules/**
+*.bat

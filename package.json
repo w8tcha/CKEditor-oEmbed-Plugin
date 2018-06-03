@@ -1,0 +1,21 @@
+{
+  "name": "ckeditor-oembed-plugin",
+  "version": "1.18",
+  "author": "w8tcha",
+  "description": "oEmbed Plugin for CKEditor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w8tcha/CKEditor-oEmbed-Plugin.git"
+  },
+  "keywords": [
+    "CKEditor",
+    "embed",
+    "oEmbed"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-yui-compressor": "~0.4.0"
+  }
+}

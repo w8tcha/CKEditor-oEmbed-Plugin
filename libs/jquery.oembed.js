@@ -58,19 +58,12 @@
                 for (var j = 0, l = shortURLList.length; j < l; j++) {
                     var regExp = new RegExp('://' + shortURLList[j] + '/', "i");
                     if (resourceURL.match(regExp) !== null) {
-                        //AJAX to http://api.longurl.org/v2/expand?url=http://bit.ly/JATvIs&format=json&callback=hhh
                         var ajaxopts = $.extend({
-                            url: "http://api.longurl.org/v2/expand",
-                            dataType: 'jsonp',
-                            data: {
-                                url: resourceURL,
-                                format: "json"
-                                //callback: "?"
-                            },
-                            success: function(data) {
-                                //this = $.fn.oembed;
-                                resourceURL = data['long-url'];
-                                provider = $.fn.oembed.getOEmbedProvider(data['long-url']);
+                            url: "https://unshorten.me/json/" + resourceURL,
+                            dataType: 'json',
+                            success: function (data) {
+                                resourceURL = data['resolved_url'];
+                                provider = $.fn.oembed.getOEmbedProvider(data['resolved_url']);
 
                                 if (provider !== null) {
                                     provider.params = getNormalizedParams(settings[provider.name]) || {};
@@ -83,6 +76,7 @@
                             }
                         }, settings.ajaxOptions || {});
 
+                        
                         $.ajax(ajaxopts);
 
                         return container;
@@ -724,7 +718,7 @@
         new $.fn.oembed.OEmbedProvider("official.fm", "rich", ["official.fm/.+"], 'http://official.fm/services/oembed', { useYQL: 'json' }),
         new $.fn.oembed.OEmbedProvider("chirbit", "rich", ["chirb.it/.+"], 'http://chirb.it/oembed.json', { useYQL: 'json' }),
         new $.fn.oembed.OEmbedProvider("Huffduffer", "rich", ["huffduffer.com/[-.\\w@]+/\\d+"], "http://huffduffer.com/oembed"),
-        new $.fn.oembed.OEmbedProvider("Spotify", "rich", ["open.spotify.com/(track|album|user)/"], "https://embed.spotify.com/oembed/"),
+        new $.fn.oembed.OEmbedProvider("Spotify", "rich", ["open.spotify.com/(track|album|user)/"], "https://open.spotify.com/embed/"),
         new $.fn.oembed.OEmbedProvider("shoudio", "rich", ["shoudio.com/.+", "shoud.io/.+"], "http://shoudio.com/api/oembed"),
         new $.fn.oembed.OEmbedProvider("mixcloud", "rich", ["mixcloud.com/.+"], checkProtocol() + 'www.mixcloud.com/oembed/', { useYQL: 'json' }),
         new $.fn.oembed.OEmbedProvider("rdio.com", "rich", ["rd.io/.+", "rdio.com"], checkProtocol() + "www.rdio.com/api/oembed/"),

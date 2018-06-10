@@ -193,7 +193,6 @@
                         align,
                         widget,
                         title) {
-                        console.log(maxHeight);
                         if (title === '') {
                             alert(editor.lang.oembed.titleError);
                             return false;
@@ -201,7 +200,6 @@
                         jQuery('body').oembed(url,
                             {
                                 onEmbed: function (e) {
-                                    console.log(e);
                                     var elementAdded = false,
                                         provider = jQuery.fn.oembed.getOEmbedProvider(url);
 

@@ -218,7 +218,6 @@
     }
 
     function success(oembedData, externalUrl, container) {
-        $('#jqoembeddata').data(externalUrl, oembedData.code);
         settings.beforeEmbed.call(container, oembedData);
         settings.onEmbed.call(container, oembedData);
         settings.afterEmbed.call(container, oembedData);
@@ -348,7 +347,6 @@
                     src = src.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
                 }
                 if (settings.maxHeight && settings.maxWidth) {
-
                     if (settings.useResponsiveResize) {
 
                         var ratio = 0; // Used for aspect ratio
@@ -1258,7 +1256,7 @@
         new $.fn.oembed.OEmbedProvider("twitter",
             "rich",
             ["twitter.com/.+"],
-            "https://api.twitter.com/1/statuses/oembed.json"),
+            "https://api.twitter.com/1/statuses/oembed.json?id="),
         new $.fn.oembed.OEmbedProvider("gmep",
             "rich",
             ["gmep.imeducate.com/.*", "gmep.org/.*"],

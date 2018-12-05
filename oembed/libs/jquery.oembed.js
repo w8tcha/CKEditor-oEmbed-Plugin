@@ -1163,7 +1163,10 @@
         new $.fn.oembed.OEmbedProvider("instagram",
             "photo",
             ["instagr\\.?am(\\.com)?/.+"],
-            checkProtocol() + "api.instagram.com/oembed"),
+            checkProtocol() + "api.instagram.com/oembed",
+            {
+                dataType: "json"
+            }),
         //new $.fn.oembed.OEmbedProvider("yfrog", "photo", ["yfrog\\.(com|ru|com\\.tr|it|fr|co\\.il|co\\.uk|com\\.pl|pl|eu|us)/.+"], checkProtocol() + "yfrog.com/api/oembed",{useYQL:"json"}),
         new $.fn.oembed.OEmbedProvider("SmugMug",
             "photo",

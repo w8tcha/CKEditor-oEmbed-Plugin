@@ -11,7 +11,7 @@
                 icons: 'oembed',
                 hidpi: true,
                 requires: 'widget,dialog',
-                lang: 'ar,ca,cs,de,en,es,fr,nl,pl,pt-br,ru,tr,zh', // %REMOVE_LINE_CORE%
+                lang: 'ar,ca,cs,de,en,es,fr,nl,pl,pt-br,ru,tr,uk,zh', // %REMOVE_LINE_CORE%
                 version: '1.18.1',
                 onLoad: function() {
                     CKEDITOR.document.appendStyleSheet(this.path + 'css/oembed.css');

@@ -14,7 +14,7 @@
     "oEmbed"
   ],
   "devDependencies": {
-    "grunt": "~0.4.2",
+    "grunt": "~1.4.0",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-yui-compressor": "~0.4.0"
   }

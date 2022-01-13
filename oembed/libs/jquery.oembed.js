@@ -770,7 +770,7 @@
         //Video
         new $.fn.oembed.OEmbedProvider("youtube",
             "video",
-            ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+", "youtube.com/embed"],
+            ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+", "youtube.com/embed", "youtube-nocookie.com/embed"],
             checkProtocol() + 'www.youtube.com/embed/$1?wmode=transparent',
             {
                 templateRegex: /.*(?:v\=|be\/|embed\/)([\w-]+)(?:[?&]t=(\w*))?/,

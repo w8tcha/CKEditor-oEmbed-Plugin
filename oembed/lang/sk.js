@@ -3,11 +3,10 @@ CKEDITOR.plugins.setLang('oembed',
     {
         title: "Vložiť mediálny obsah (fotografia, video, zvuk alebo bohatý obsah)",
         button: "Vložiť médiá z externých stránok",
-        pasteUrl:
-            "Vložte adresu URL (tiež podporované sú skrátené adresy URL) z niektorej z podporovaných stránok (napr. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera atď.).",
+        pasteUrl: "Vložte adresu URL (tiež podporované sú skrátené adresy URL) z niektorej z podporovaných stránok (napr. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera atď.).",
         invalidUrl: "Zadajte platnú adresu URL.",
         noEmbedCode: "Nenájedný kód na vloženie alebo stránka nie je podporovaná.",
-        embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",
+        embedTitle: "Názov (alebo štítok aria) <span class='oembed-required'>[Required]</span>:",
         url: "URL <span class='oembed-required'>[Required]</span>:",
         width: "Šírka:",
         height: "Výška:",
@@ -17,13 +16,12 @@ CKEDITOR.plugins.setLang('oembed',
         maxHeight: "Max. výška:",
         maxWidthTitle: "Maximálna šírka pre vložený obsah",
         maxHeightTitle: "Maximálna výška pre vložený obsah",
-        none: 'None',
+        none: "Žiadne",
         resizeType: "Typ zmeny veľkosti (iba videá):",
         noresize: "Žiadna zmena veľkosti (použiť predvolené)",
         responsive: "Responzívna zmena veľkosti",
         custom: "Špecifická zmena veľkosti",
-        noVimeo:
-            "Vlastník tohto videa nastavil obmedzenia domény a toto video nebudete môcť vložiť na svoj web.",
+        noVimeo: "Vlastník tohto videa nastavil obmedzenia domény a toto video nebudete môcť vložiť na svoj web.",
         Error: "Mediálny obsah sa nepodarilo načítať, skúste inú adresu URL.",
-        titleError: "Media Title is required to meet accessibility standards."
+        titleError: "Názov média je požiadovaný na splnenie štandardov prístupnosti."
     });

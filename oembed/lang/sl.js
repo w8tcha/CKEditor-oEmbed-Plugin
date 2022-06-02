@@ -3,8 +3,7 @@ CKEDITOR.plugins.setLang('oembed',
     {
         title: "Vdelana medijska vsebina (slikovna, video, avdio ali bogata vsebina)",
         button: "Vdelani mediji zunanjih strani",
-        pasteUrl:
-            "Prilepite URL-naslov (podprti so tudi skrajšani URL-naslovi) iz ene od podprtih strani (npr. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera itd.).",
+        pasteUrl: "Prilepite URL-naslov (podprti so tudi skrajšani URL-naslovi) iz ene od podprtih strani (npr. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera itd.).",
         invalidUrl: "Vnesite veljaven URL-naslov.",
         noEmbedCode: "Vdelane kode ni bilo mogoče najti ali pa stran ni podrta.",
         embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",

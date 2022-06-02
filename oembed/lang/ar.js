@@ -3,8 +3,7 @@ CKEDITOR.plugins.setLang('oembed',
     {
         title: "تضمين محتوى وسائط (صور، فيديو، صوت أو محتوى غني)",
         button: "دمج وسائل الإعلام من مواقع خارجية",
-        pasteUrl:
-            "إلصق وصلة المحتوى (الوصلات القصيرة مدعومة أيضا) من المواقع المدعومة (مثل: YouTube، Flicker، QiK، Vimeo، Hulu، Viddler، MyOpera، إلخ).",
+        pasteUrl: "إلصق وصلة المحتوى (الوصلات القصيرة مدعومة أيضا) من المواقع المدعومة (مثل: YouTube، Flicker، QiK، Vimeo، Hulu، Viddler، MyOpera، إلخ).",
         invalidUrl: "برجاء تقديم وصله صحيحة.",
         noEmbedCode: "لا يوجد كود تضمين، أو الموقع غير مدعم.",
         embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",

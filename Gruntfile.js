@@ -7,31 +7,38 @@
  */
 module.exports = function(grunt) {
 
-  // CONFIGURATION
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    // CONFIGURATION
+    grunt.initConfig({
+        pkg: grunt.file.readJSON("package.json"),
 
-    // Minimize JS
-    min: {
-      options: {
-        report: false
-      },
-      difflib: {
-        src: [
-          'oembed/libs/jquery.oembed.js'
-          ],
-        dest: 'oembed/libs/jquery.oembed.min.js',
-      }
-    }
+        // Minimize JS
+        uglify: {
+            minify: {
+                files: {
+                    "oembed/libs/jquery.oembed.min.js": "oembed/libs/jquery.oembed.js"
 
-  });
+                }
+            }
+        },
+        devUpdate: {
+            main: {
+                options: {
+                    reportUpdated: true,
+                    updateType: "force",
+                    semver: false
+                }
+            }
+        }
 
-  // PLUGINS
-  grunt.loadNpmTasks('grunt-yui-compressor');
+    });
 
+    // PLUGINS
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-dev-update");
 
-  grunt.registerTask('default', [
-    'min'
-    ]);
-
+    grunt.registerTask("default",
+        [
+            "devUpdate",
+            "uglify"
+        ]);
 };

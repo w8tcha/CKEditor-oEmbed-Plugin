@@ -3,8 +3,7 @@ CKEDITOR.plugins.setLang('oembed',
     {
         title: "Contingut Multimèdia incrustat (Foto, Vídeo, Audio o Contingut Ric)",
         button: "Multimèdia de llocs externs",
-        pasteUrl:
-            "Pega una URL (tant abreujada com sigui possible) d'un dels llocs suportats (p.e. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.).",
+        pasteUrl: "Pega una URL (tant abreujada com sigui possible) d'un dels llocs suportats (p.e. YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.).",
         invalidUrl: "Indica una URL vàlida.",
         noEmbedCode: "No s'ha trobat codi incrustat, o el lloc no ho suporta.",
         embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",

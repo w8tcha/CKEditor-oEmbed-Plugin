@@ -3,13 +3,11 @@ CKEDITOR.plugins.setLang('oembed',
     {
         title: "Incorporar conteúdo de mídia (foto, vídeo, áudio ou conteúdo rico)",
         button: "Incorporar mídia de sites externos",
-        pasteUrl:
-            "Colar uma URL (URLs abreviadas também são suportadas) de um dos sites suportados (por exemplo, YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.).",
+        pasteUrl: "Colar uma URL (URLs abreviadas também são suportadas) de um dos sites suportados (por exemplo, YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.).",
         invalidUrl: "Por favor, forneça uma URL válida.",
-        noEmbedCode:
-            "Nenhum código de incorporação encontrado, ou o site não é suportado.",
-        embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",
-        url: "URL <span class='oembed-required'>[Required]</span>:",
+        noEmbedCode: "Nenhum código de incorporação encontrado, ou o site não é suportado.",
+        embedTitle: "Título (ou aria-label) <span class='oembed-required'>[Necessário]</span>:",
+        url: "URL <span class='oembed-required'>[Necessário]</span>:",
         width: "Largura:",
         height: "Altura:",
         widthTitle: "Largura para conteúdo embutido",
@@ -19,11 +17,11 @@ CKEDITOR.plugins.setLang('oembed',
         maxWidthTitle: "Largura máxima para o conteúdo embutido",
         maxHeightTitle: "Altura máxima para o conteúdo embutido",
         resizeType: "Redimensionar tipo (somente vídeos):",
-        none: 'None',
+        none: "Nenhum",
         noresize: "Sem redimensionamento (usar padrão)",
         responsive: "Redimensionamento responsivo",
         custom: "Redimensionamento específico",
         noVimeo: "O proprietário deste vídeo estabeleceu restrições de domínio e você não poderá incorporá-lo em seu website.",
         Error: "O conteúdo da mídia não pôde ser recuperado, por favor tente uma URL diferente.",
-        titleError: "Media Title is required to meet accessibility standards."
+        titleError: "O título da mídia é necessário para cumprir os padrões de acessibilidade."
     });

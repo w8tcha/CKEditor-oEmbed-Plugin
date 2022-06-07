@@ -3,8 +3,7 @@ CKEDITOR.plugins.setLang('oembed',
     {
         title: "Medya içeriği ekle (Fotoğraf, Video, Ses Dosyası, Zengin Medya İçeriği)",
         button: "Farklı sitelerden medya içeriği ekle",
-        pasteUrl:
-            "Desteklenen sitelerden bir URL ekleyin (Kısaltılmış URL de olabilir) (örnek: YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.)...",
+        pasteUrl: "Desteklenen sitelerden bir URL ekleyin (Kısaltılmış URL de olabilir) (örnek: YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.)...",
         invalidUrl: "Lütfen geçerli bir URL adresi tanımlayın!",
         noEmbedCode: "Embed kodu bulunamadı veya site desteklenmiyor!",
         embedTitle: "Title (or aria-label) <span class='oembed-required'>[Required]</span>:",

@@ -1,6 +1,6 @@
 {
   "name": "ckeditor-oembed-plugin",
-  "version": "1.18.1",
+  "version": "1.19.0",
   "author": "w8tcha",
   "description": "oEmbed Plugin for CKEditor",
   "license": "MIT",
@@ -15,7 +15,7 @@
   ],
   "devDependencies": {
     "grunt": "~1.5.3",
-    "grunt-contrib-uglify": "*",
+    "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-dev-update": "^2.3.0"
   }
